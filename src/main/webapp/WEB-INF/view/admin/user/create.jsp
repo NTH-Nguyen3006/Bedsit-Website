@@ -8,7 +8,7 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
+            <title>Tao User</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
                 crossorigin="anonymous">
@@ -27,7 +27,7 @@
             <div class="container mt-5">
                 <h1>Tạo mới User</h1>
 
-                <form:form action="/admin/user/create" method="post" modelAttribute="newUser">
+                <form:form action="./create" method="post" modelAttribute="newUser">
                     <div class="form-group">
                         <label path="username">Tài khoản</label>
                         <form:input path="username" class="form-control"></form:input>

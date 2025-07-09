@@ -1,5 +1,7 @@
 package com.example.ahihi.sevices;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.ahihi.entities.User;
@@ -7,13 +9,17 @@ import com.example.ahihi.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
     public UserService(UserRepository repository) {
-        this.repository = repository;
+        this.userRepository = repository;
     }
 
     public User saveUserService(User user) {
-        return this.repository.save(user);
+        return this.userRepository.save(user);
+    }
+
+    public List<User> getAllUser() {
+        return this.userRepository.findAll();
     }
 }
