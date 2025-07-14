@@ -16,7 +16,7 @@ public class WebConfigMVC implements WebMvcConfigurer {
     @Bean
     ViewResolver viewResolver() {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
-        bean.setSuffix(".jsp");
+        bean.setSuffix(".html");
         bean.setPrefix("/WEB-INF/view/");
         return bean;
     }
@@ -28,8 +28,8 @@ public class WebConfigMVC implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // TODO Auto-generated method stub
         registry.addResourceHandler("css/**")
                 .addResourceLocations("resources/css");
     }
+
 }

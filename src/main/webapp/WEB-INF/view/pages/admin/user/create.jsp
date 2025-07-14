@@ -1,9 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-    <%@ page language="java" pageEncoding="UTF-8" %>
+    <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
         <!DOCTYPE html>
         <html lang="en">
-        <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" URIEncoding="UTF-8" />
 
         <head>
             <meta charset="UTF-8">

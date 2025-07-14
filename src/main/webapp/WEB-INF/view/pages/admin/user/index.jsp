@@ -2,6 +2,8 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ page language="java" pageEncoding="UTF-8" %>
 
+            <c:import url="../layouts/shared/layout.jsp" var="cPage" charEncoding="UTF-8" />
+
             <!DOCTYPE html>
             <html lang="en">
 
@@ -9,7 +11,7 @@
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Quản lý người dùng</title>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+                <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
                     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
                     crossorigin="anonymous">
 
@@ -20,7 +22,7 @@
                     integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
                     crossorigin="anonymous"></script>
                 <script src="https://code.jquery.com/jquery-3.7.1.js"
-                    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+                    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script> -->
             </head>
 
             <body>
