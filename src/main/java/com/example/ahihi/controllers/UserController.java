@@ -29,5 +29,4 @@ public class UserController {
     public String clientPage(Model model) {
         return "hello";
     }
-
 }
