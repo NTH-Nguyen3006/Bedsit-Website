@@ -28,10 +28,10 @@ public class WebConfigMVC implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("css/**")
+        registry.addResourceHandler("/css/**")
                 .addResourceLocations("classpath:/static/css");
 
-        registry.addResourceHandler("/bootstrap/**") // Ví dụ: /bootstrap/css/bootstrap.min.css
+        registry.addResourceHandler("bootstrap/**") // Ví dụ: /bootstrap/css/bootstrap.min.css
                 .addResourceLocations("classpath:/static/lib/bootstrap-5.3.7-dist/"); // Thư mục gốc chứa Bootstrap
 
         registry.addResourceHandler("/images/**")
