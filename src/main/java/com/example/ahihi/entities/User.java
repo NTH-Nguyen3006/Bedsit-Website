@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,4 +30,8 @@ public class User {
     int age;
     String phoneNumber;
     String address;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    Roles roles;
 }

@@ -4,9 +4,12 @@
             <a class="navbar-brand" th:href="@{/}">
                 <img width="100" th:src="@{/images/icons/ahihi-logo.png}" alt="Home">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <svg class="bi" width="16" height="16" fill="currentColor">
+                    <use th:xlink:href="@{/bootstrap/three-dots.svg}" />
+                </svg>
+
             </button>
 
             <div class="offcanvas offcanvas-start " tabindex="-1" id="offcanvasNavbar"
@@ -29,9 +32,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Đăng Nhập</a>
                         </li>
-                        <li class="nav-item d-flex align-items-center">
+                        <!-- <li class="nav-item d-flex align-items-center">
                             <div style="border-right: 1px solid #ccc; height: 30px;">
                             </div>
+                        </li> -->
+                        <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+                            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-secondary-emphasis"></div>
+                            <hr class="d-lg-none my-2 text-white-50">
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Đăng Ký</a>

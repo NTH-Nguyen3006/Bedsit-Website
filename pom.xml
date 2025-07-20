@@ -47,7 +47,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<version>3.5.3</version>
+			<!-- <version>3.5.3</version> -->
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -79,11 +79,10 @@
 			<groupId>jakarta.servlet.jsp.jstl</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 		</dependency> -->
-
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -112,6 +111,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<!-- <version>${maven-surefire-plugin.version}</version> -->
 				<configuration>
 					<annotationProcessorPaths>
 						<path>
