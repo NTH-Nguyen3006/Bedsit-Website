@@ -1,20 +1,18 @@
-version: '3.8'
-
 services:
   mssql-server:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: ahihi-mssql-server
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "YourStrongPassword!123"
+      SA_PASSWORD: "Password123"
       MSSQL_PID: "Developer"
     ports:
-      - "1433:1433"
+      - 1433:1433
     volumes:
       - mssql_data:/var/opt/mssql
 
     healthcheck:
-      test: [ "CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"YourStrongPassword!123\" -Q \"SELECT 1\" || exit 1" ]
+      test: [ "CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"Password123\" -Q \"SELECT 1\" || exit 1" ]
       interval: 5s
       timeout: 5s
       retries: 10

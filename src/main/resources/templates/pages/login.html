@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{shared/_layout}">
+
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE">Đăng nhập</title>
+
+    <style th:inline="text">
+        body {
+            background: url([[@{/images/login-background.jpg}]]);
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: grid;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgb(223, 223, 223)
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.6);
+            color: rgb(43, 43, 43);
+        }
+
+        label {
+            color: var(--bs-light);
+        }
+    </style>
+</head>
+
+
+<body>
+    <main layout:fragment="content">
+        <div class="container p-lg-5">
+            <div class="row justify-content-center p-2">
+                <div class="col-12 mb-3">
+                    <h1 class="text-center fw-bolder text-white">ĐĂNG NHẬP</h1>
+                </div>
+                <div class="col-12 col-sm-8 px-4 py-5  rounded-5" style="backdrop-filter: blur(20px); max-width: 40em;
+                    
+                    /* From https://css.glass */
+background: rgba(255, 255, 255, 0.1);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(25px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+                    ">
+                    <form th:action="@{/account/login}" th:object="${user}" method="post">
+                        <div class="mb-3 ">
+                            <label for="username" class="fw-semibold ">Tài khoản</label>
+                            <input class="form-control shadow-none p-3 rounded-5" id="username" th:field="*{username}"
+                                placeholder="Tài khoản hoặc email">
+                            <div class="form-text text-danger"> </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="password" class="fw-semibold ">Nhập mật khẩu</label>
+                            <input class="form-control shadow-none p-3 rounded-5" id="password" th:field="*{password}"
+                                placeholder="Mật khẩu" type="password">
+                        </div>
+                        <div class="form-check d-flex mb-3">
+                            <input class="form-check-input" type="checkbox" id="checkDefault">
+                            <label class="form-check-label ms-2 " for="checkDefault">
+                                Nhớ lần đăng nhập
+                            </label>
+                            <a class="ms-auto" th:href="@{#}">Quên mật khẩu</a>
+                        </div>
+                        <button class="col-12 btn btn-lg btn-primary rounded-4">Đăng nhập</button>
+                        <div class="d-flex align-items-center my-3">
+                            <style>
+                                hr {
+                                    border-top: 1px solid #dbdbdb;
+                                    flex-grow: 1;
+                                }
+                            </style>
+                            <hr>
+                            <span class="mx-3">Đăng nhập bằng hình thức khác</span>
+                            <hr>
+                        </div>
+                        <div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer layout:fragment="footer"></footer>
+</body>
+
+</html>
