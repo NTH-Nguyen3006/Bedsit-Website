@@ -1,5 +1,9 @@
 package com.example.ahihi.entities;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.Builder.Default;
 import lombok.experimental.FieldDefaults;
 
 @Entity
@@ -26,10 +31,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String username;
+    String email;
     String password;
-    int age;
+    String fullName;
     String phoneNumber;
-    String address;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

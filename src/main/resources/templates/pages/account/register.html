@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{shared/_layout}">
+
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE">Đăng Ký Tài Khoản</title>
+
+    <style th:inline="text">
+        body {
+            background: url([[@{/images/login-background.jpg}]]);
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: grid;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgb(223, 223, 223)
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.6);
+            color: rgb(43, 43, 43);
+        }
+
+        label {
+            color: var(--bs-light);
+        }
+
+        .btn-login-service {
+            padding: 10px;
+            border-radius: 1.5em;
+            border: 0;
+            display: grid;
+
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            color: var(--bs-light);
+        }
+
+        input::placeholder {
+            color: #b8b8b8 !important;
+        }
+    </style>
+</head>
+
+
+<body>
+    <main layout:fragment="content">
+        <div class="container-lg p-lg-5 text-light">
+            <div class="row justify-content-center p-2">
+                <div class="col-12 mb-3">
+                    <h1 class="text-center fw-bolder text-white">Đăng Ký - Tài Khoản</h1>
+                </div>
+                <div class="col-12 col-sm-8 px-4 py-5  rounded-5" style="backdrop-filter: blur(20px); max-width: 40em; 
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 16px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(5px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                    ">
+                    <form class="row g-3" th:action="@{/account/login}" th:object="${user}" method="post">
+                        <div class="col-12">
+                            <label for="username" class="fw-semibold ms-2">Tên tài khoản</label>
+                            <input class="form-control shadow-none p-3 rounded-5" id="username" th:field="*{username}"
+                                placeholder="Tài khoản hoặc email">
+                            <div class="form-text text-danger"> </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="username" class="fw-semibold ms-2">Email</label>
+                            <input class="form-control shadow-none p-3 rounded-5" id="username" th:field="*{username}"
+                                type="email" placeholder="Tài khoản hoặc email">
+                            <div class="form-text text-danger"></div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="username" class="fw-semibold ms-2">Họ và tên</label>
+                            <input class="form-control shadow-none p-3 rounded-5" id="username" th:field="*{username}"
+                                type="email" placeholder="Nhập đầy đủ họ và tên">
+                            <div class="form-text text-danger"></div>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label for="username" class="fw-semibold ms-2">Nhập mật khẩu</label>
+                            <input class="form-control shadow-none p-3 rounded-5" id="username" th:field="*{username}"
+                                type="email" placeholder="Nhập mật khẩu">
+                            <div class="form-text text-danger"></div>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label for="username" class="fw-semibold ms-2">Xác thực mật khẩu</label>
+                            <input class="form-control shadow-none p-3 rounded-5" id="username" th:field="*{username}"
+                                type="email" placeholder="Xác thực mật khẩu">
+                            <div class="form-text text-danger"></div>
+                        </div>
+
+
+                        <!-- <div class="mb-2">
+                            <label for="password" class="fw-semibold ">Nhập mật khẩu</label>
+                            <input class="form-control shadow-none p-3 rounded-5" id="password" th:field="*{password}"
+                                placeholder="Mật khẩu" type="password">
+                        </div> -->
+                        <!-- <div class="form-check d-flex mb-3">
+                            <input class="form-check-input" type="checkbox" id="checkDefault">
+                            <label class="form-check-label ms-2 " for="checkDefault">
+                                Nhớ lần đăng nhập
+                            </label>
+                            <a class="ms-auto" th:href="@{#}">Quên mật khẩu</a>
+                        </div> -->
+                        <button class="col-12 btn btn-lg btn-success rounded-5">Xác nhận</button>
+                        <div class="d-flex align-items-center my-3">
+                            <style>
+                                hr {
+                                    border-top: 1px solid #dbdbdb;
+                                    flex-grow: 1;
+                                }
+                            </style>
+                            <hr>
+                            <span class="mx-3">Các dịch vụ khác</span>
+                            <hr>
+                        </div>
+                    </form>
+                    <div class="row g-2">
+                        <div class="col-lg-6">
+                            <a href="/oauth2/authorization/google" class="btn btn-login-service google-login">
+                                <div><img th:src="@{/images/icons/google-icons.png}" width="25">
+                                    <span class="ms-2">Đăng nhập bằng Google</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-6">
+                            <a class="btn btn-login-service google-login ">
+                                <div><img th:src="@{/images/icons/facebook.ico}" width="25">
+                                    <span class="ms-2">Đăng nhập bằng Facebook</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer layout:fragment="footer"></footer>
+</body>
+
+</html>

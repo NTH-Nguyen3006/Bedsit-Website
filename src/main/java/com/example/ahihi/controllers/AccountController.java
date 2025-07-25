@@ -14,16 +14,28 @@ public class AccountController {
     @GetMapping(value = "/account/login")
     public String loginPage(Model model) {
         model.addAttribute("user", new User());
-        return "pages/login";
+        return "pages/account/login";
     }
 
     @PostMapping(value = "/account/login")
     public String loginPage(@ModelAttribute("user") User user, Model model) {
-        return "pages/login";
+        return "pages/account/login";
     }
 
     @GetMapping(value = "/account/register")
+    public String registerPage(Model model) {
+        model.addAttribute("user", new User());
+
+        return "pages/account/register";
+    }
+
+    @PostMapping(value = "/account/register")
     public String registerPage() {
-        return "pages/register";
+        return "pages/account/register";
+    }
+
+    @PostMapping(value = "/account/forgot-password")
+    public String getPasswordPage() {
+        return "pages/account/forgot-password";
     }
 }

@@ -2,6 +2,7 @@ package com.example.ahihi.entities;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,10 +28,10 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    // @Column(name = "Role")
+    @Column(name = "roleName")
     String roleName;
 
-    // @Column(name = "Decription")
+    @Column(name = "decription")
     String decription;
 
     @OneToMany(mappedBy = "roles", targetEntity = User.class)
