@@ -18,7 +18,8 @@
 <body>
     <header class="sticky-top" th:replace="~{shared/header::header}"> </header>
 
-    <article layout:fragment="content"> </article>
+    <aside layout:fragment="aside"></aside>
+    <main layout:fragment="content"> </main>
 
     <footer layout:fragment="footer">
         <div th:replace="~{shared/footer::footer}">

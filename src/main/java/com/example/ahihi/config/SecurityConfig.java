@@ -10,20 +10,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    String[] patternsPublic = {
-            "/", "/account/register",
-            "/css/**", "/js/**", "/bootstrap/**", "/images/**",
-            "/error"
-    };
+	String[] patternsPublic = {
+			"/", "/account/register",
+			"/css/**", "/js/**", "/bootstrap/**", "/images/**",
+			"/error"
+	};
 
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.authorizeHttpRequests(author -> author.requestMatchers(patternsPublic).permitAll()
-                .anyRequest().permitAll())
-                .oauth2Login(oauth2 -> oauth2.loginPage("/account/login").permitAll()
-                        .defaultSuccessUrl("/"))
-                .logout(logout -> logout.permitAll())
-                // .csrf(csrf -> csrf.disable())
-                .build();
-    }
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+		return httpSecurity.authorizeHttpRequests(author -> author.requestMatchers(patternsPublic).permitAll()
+				.anyRequest().permitAll())
+				.oauth2Login(oauth2 -> oauth2.loginPage("/account/login").permitAll()
+						.defaultSuccessUrl("/"))
+				.logout(logout -> logout.permitAll())
+				// .csrf(csrf -> csrf.disable())
+				.build();
+	}
 }
