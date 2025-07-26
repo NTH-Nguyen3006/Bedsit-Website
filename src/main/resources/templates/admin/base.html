@@ -3,89 +3,88 @@
 
 <head>
     <title layout:title-pattern="$CONTENT_TITLE">Admin</title>
+    <style>
+        .list-unstyled>li {
+            padding: 10px;
+        }
+
+        .list-unstyled .bi {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 
-<aside class="position-fixed" layout:fragment="aside">
-    <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
-        <div class="offcanvas-header border-bottom">
-            <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Chuyển Hướng</h5> <button type="button"
-                class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdSidebar"></button>
-        </div>
-        <div class="offcanvas-body">
-            <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
-                <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2">
-                    <li class="bd-links-group py-2">
-                        <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
+<div class="bd-gutter my-md-4 bd-layout" style="grid-template-columns: 1fr 7fr;" layout:fragment="content-block">
+    <aside class="h-100" style="min-width: calc(15rem - 30px);" layout:fragment="aside">
+        <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar"
+            aria-labelledby="bdSidebarOffcanvasLabel">
+            <div class="offcanvas-header border-bottom">
+                <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Chuyển Hướng</h5> <button type="button"
+                    class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                    data-bs-target="#bdSidebar"></button>
+            </div>
+            <div class="offcanvas-body">
+                <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
+                    <ul class="bd-links-nav list-unstyled mb-0 pb-3 ">
+                        <li class="bd-links-group py-2">
+                            <!-- <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
                             <svg class="bi me-2" style="color: var(--bs-indigo);" aria-hidden="true">
                                 <use th:xlink:href="@{/bootstrap/ui-radios.svg}" />
                             </svg>
                             Admin
-                        </strong>
-                        <ul class="list-unstyled fw-normal pb-2 small">
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded">
-                                    Bảng điều hướng
-                                </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded">
-                                    Nhà Trọ
-                                </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded">
-                                    Đánh Giá </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded">
-                                    Người dùng </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded">
-                                    JavaScript </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded"> Webpack </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded"> Parcel </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded">
-                                    Vite </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded"> Accessibility
-                                </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded">
-                                    RFS </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded">
-                                    RTL </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/admin}" class="bd-links-link d-inline-block rounded">
+                        </strong> -->
+                            <ul class="list-unstyled">
+                                <li class="">
+                                    <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
+                                        <svg class="bi" width="16" height="16" fill="currentColor">
+                                            <use th:xlink:href="@{/bootstrap/grid-fill.svg}" />
+                                        </svg>
+                                        Bảng điều hướng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
+                                        <svg class="bi" width="16" height="16" fill="currentColor">
+                                            <use th:xlink:href="@{/bootstrap/house-add-fill.svg}" />
+                                        </svg>
+                                        Phòng Trọ
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
+                                        <svg class="bi" width="16" height="16" fill="currentColor">
+                                            <use th:xlink:href="@{/bootstrap/chat-right-text-fill.svg}" />
+                                        </svg>
+                                        Đánh Giá </a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
+                                        <svg class="bi" width="16" height="16" fill="currentColor">
+                                            <use th:xlink:href="@{/bootstrap/people-fill.svg}" />
+                                        </svg>
+                                        Người dùng </a>
+                                </li>
+                                <!-- <li>
+                                <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
                                     Contribute </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- <li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li> -->
-                    <li class="bd-links-span-all"> <a href="/docs/5.3/migration/"
-                            class="bd-links-link d-inline-block rounded small"> Migration </a> </li>
-                </ul>
-            </nav>
+                            </li> -->
+                            </ul>
+                        </li>
+                        <!-- <li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li> -->
+                        <!-- <li class="bd-links-span-all"> <a href="/docs/5.3/migration/"
+                            class="nav-link d-inline-block rounded small"> Migration </a> </li> -->
+                    </ul>
+                </nav>
+            </div>
         </div>
-    </div>
-</aside>
+    </aside>
 
-<main layout:fragment="content" class="container-xxl mt-3 my-md-4 bd-layout">
-    <div class="bd-main order-1">
-        <div class="container" layout:fragment="admin-main-content"></div>
-    </div>
-</main>
+    <main layout:fragment="content" class="">
+        <div class="container-fluid" layout:fragment="admin-main-content"></div>
+    </main>
+</div>
+
+
 
 <footer layout:fragment="footer"></footer>
 
