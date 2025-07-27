@@ -5,40 +5,50 @@
 	<title layout:title-pattern="$CONTENT_TITLE">Admin</title>
 </head>
 
-<div class="container-fluid" layout:fragment="admin-main-content">
-	<h1>Content</h1>
-	<div class="row g-3">
-		<div class="col-md-4 bg- col-12 col-sm-6">
-			<div class="card border-0 p-0 shadow-lg">
+<div class="container-xxl" layout:fragment="admin-main-content">
+	<h1 class="mb-5">Dashboard</h1>
+	<div class="row g-3 row-cols-md-3 card-group">
+		<div class="col-md-6 col-lg-4 col-sm-12">
+			<div class="card border-0 p-0 shadow h-100">
 				<div class="card-body ">
 					<h5 class="card-title fw-bold text-uppercase">Phòng trọ</h5>
 					<p class="card-text mb-sm-2">Phòng trống: </p>
 					<p class="card-text">Phòng đã thuê: </p>
-					<a href="#" class="btn btn-primary">Chỉnh sửa</a>
+					<!-- <a href="#" class="btn btn-primary">Chỉnh sửa</a> -->
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 col-12 col-sm-6">
-			<div class="card border-0 p-0 shadow-lg">
+		<div class="col-md-6 col-lg-4 col-sm-12">
+			<div class="card border-0 p-0 shadow h-100">
 				<div class="card-body">
-					<h5 class="card-title fw-bold text-uppercase">Phòng trọ</h5>
+					<h5 class="card-title fw-bold text-uppercase">doanh thu mỗi tháng</h5>
 					<p class="card-text mb-sm-2">Phòng trống: </p>
 					<p class="card-text">Phòng đã thuê: </p>
-					<a href="#" class="btn btn-primary">Chỉnh sửa</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-4 col-12 col-sm-6">
-			<div class="card border-0 p-0 shadow-lg">
-				<div class="card-body ">
-					<h5 class="card-title fw-bold text-uppercase">Phòng trọ</h5>
-					<p class="card-text mb-sm-2">Phòng trống: </p>
-					<p class="card-text">Phòng đã thuê: </p>
-					<a href="#" class="btn btn-primary">Chỉnh sửa</a>
-				</div>
-			</div>
-		</div>
 
+					<!-- <a href="#" class="btn btn-primary">Chỉnh sửa</a> -->
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-lg-4 col-sm-12">
+			<div class="card border-0 p-0 shadow h-100">
+				<div class="card-body ">
+					<h5 class="card-title fw-bold text-uppercase">Doanh thu tháng trước</h5>
+
+					<p class="card-text mb-sm-2">Số phòng đã thanh toán</p>
+					<p class="card-text">Tổng số tiền</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-lg-4 col-sm-12">
+			<div class="card border-0 p-0 shadow h-100">
+				<div class="card-body ">
+					<h5 class="card-title fw-bold text-uppercase">Lượt đánh giá</h5>
+
+					<p class="card-text mb-sm-2">Phản hồi tốt:</p>
+					<p class="card-text">Phản hồi tiêu cực:</p>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

@@ -5,7 +5,14 @@
     <title layout:title-pattern="$CONTENT_TITLE">Admin</title>
     <style>
         .list-unstyled>li {
+            background-color: var(--bs-tertiary-bg);
             padding: 10px;
+            transition: all .3s ease;
+        }
+
+        .list-unstyled li:hover {
+            transition: all .3s ease;
+            background-color: #5f5f5f;
         }
 
         .list-unstyled .bi {
@@ -14,27 +21,21 @@
     </style>
 </head>
 
-<div class="bd-gutter my-md-4 bd-layout" style="grid-template-columns: 1fr 7fr;" layout:fragment="content-block">
-    <aside class="h-100" style="min-width: calc(15rem - 30px);" layout:fragment="aside">
-        <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar"
+<div class="bd-gutter my-md-4 bd-layout h-100" style="grid-template-columns: 1fr 7fr;" layout:fragment="content-block">
+    <aside class="sticky-top " style="min-width: calc(15rem - 30px);" layout:fragment="aside">
+        <div class="offcanvas-lg offcanvas-start bg-body-tertiary" tabindex="-1" id="bdSidebar"
             aria-labelledby="bdSidebarOffcanvasLabel">
             <div class="offcanvas-header border-bottom">
                 <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Chuyển Hướng</h5> <button type="button"
                     class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
                     data-bs-target="#bdSidebar"></button>
             </div>
-            <div class="offcanvas-body">
+            <div class="offcanvas-body ">
                 <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
                     <ul class="bd-links-nav list-unstyled mb-0 pb-3 ">
-                        <li class="bd-links-group py-2">
-                            <!-- <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
-                            <svg class="bi me-2" style="color: var(--bs-indigo);" aria-hidden="true">
-                                <use th:xlink:href="@{/bootstrap/ui-radios.svg}" />
-                            </svg>
-                            Admin
-                        </strong> -->
+                        <li class="bd-links-group">
                             <ul class="list-unstyled">
-                                <li class="">
+                                <li>
                                     <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
                                         <svg class="bi" width="16" height="16" fill="currentColor">
                                             <use th:xlink:href="@{/bootstrap/grid-fill.svg}" />
