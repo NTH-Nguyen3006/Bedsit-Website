@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{admin/base.html}">
+
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE">Admin | Tạo User</title>
+</head>
+
+<div class="container-xxl mt-3" layout:fragment="admin-main-content">
+    <div class="d-flex">
+        <h1 class="fw-bold me-auto">Tạo User</h1>
+        <a th:href="@{/admin/user}" class="btn btn-secondary align-content-center">Trở về danh sách</a>
+    </div>
+
+</div>
+
+</html>

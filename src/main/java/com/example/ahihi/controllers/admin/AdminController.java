@@ -1,4 +1,4 @@
-package com.example.ahihi.controllers;
+package com.example.ahihi.controllers.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ahihi.entities.User;
 import com.example.ahihi.sevices.AdminService;
@@ -13,7 +14,9 @@ import com.example.ahihi.sevices.RoomService;
 import com.example.ahihi.sevices.UserService;
 
 @Controller
+@RequestMapping(path = "/admin")
 public class AdminController {
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -22,7 +25,7 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @GetMapping(value = "/admin")
+    @GetMapping(value = { "/", "" })
     public String indexPage(Model model) {
         model.addAttribute("roomCount", roomService.roomCount());
         model.addAttribute("availableRoomCount", roomService.availableRoomCount());
@@ -33,20 +36,33 @@ public class AdminController {
         return "admin/dashboard";
     }
 
-    @GetMapping(value = "/admin/user/create")
+    @GetMapping("/user")
+    public String adminUserPage(Model model) {
+        model.addAttribute("users", this.userService.getAllUser());
+        return "admin/user/index";
+    }
+
+    @GetMapping(value = "/user/create")
     public String adminCreateUserPage() {
         return "admin/user/create";
     }
 
-    @PostMapping(value = "/admin/user/create")
+    @PostMapping(value = "/user/create")
     public String createUser(@ModelAttribute("newUser") User newUser) {
         this.userService.saveUserService(newUser);
-        return "redirect:";
+        return "redirect:/admin/user";
     }
 
-    @GetMapping("/admin/user")
-    public String adminPage(Model model) {
+    @GetMapping("/room")
+    public String adminRoomPage(Model model) {
         model.addAttribute("users", this.userService.getAllUser());
-        return "admin/user/index";
+        return "admin/room/index";
     }
+
+    @GetMapping("/room/create")
+    public String adminRoomCreatePage(Model model) {
+        model.addAttribute("users", this.userService.getAllUser());
+        return "admin/room/create";
+    }
+
 }

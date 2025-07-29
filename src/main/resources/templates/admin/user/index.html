@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{admin/base.html}">
+
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE">Admin | Người dùng</title>
+</head>
+
+<div class="container-xxl" layout:fragment="admin-main-content">
+    <br>
+    <div class="d-flex">
+        <h2 class="me-auto fw-bold text-uppercase">Quản lý người dùng</h2>
+        <a th:href="@{/admin/user/create}" class="btn btn-primary rounded-5 align-content-center">Tạo người dùng</a>
+    </div>
+
+    <div class="mt-5">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Tài khoản</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Hoạt động</th>
+                </tr>
+            </thead>
+            <tbody th:each="user : ${users}">
+                <tr>
+                    <th scope="row" th:text="${user.id}">1</th>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.phoneNumber}"></td>
+                    <td>
+                        <a href="" class="btn btn-success">Xem</a>
+                        <a href="" class="btn btn-warning">Sửa</a>
+                        <a href="" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</html>

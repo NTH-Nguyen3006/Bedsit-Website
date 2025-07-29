@@ -1,22 +1,17 @@
 package com.example.ahihi.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import com.example.ahihi.entities.User;
 
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-
-    @Autowired
-    private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     @GetMapping(value = "/login")
     public String loginPage(Model model) {
@@ -32,7 +27,6 @@ public class AccountController {
     @GetMapping(value = "/register")
     public String registerPage(Model model) {
         model.addAttribute("user", new User());
-
         return "pages/account/register";
     }
 
