@@ -30,7 +30,7 @@ public class Room {
     int id;
     String title;
     double area;
-    byte status; // Đặc trưng cho số nhỏ => tinyint - sql
+    byte status;
 
     @OneToMany(mappedBy = "room")
     private Set<RoomDetails> roomDetails;

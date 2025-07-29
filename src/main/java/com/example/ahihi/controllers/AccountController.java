@@ -21,9 +21,6 @@ public class AccountController {
     @GetMapping(value = "/login")
     public String loginPage(Model model) {
         model.addAttribute("user", new User());
-
-        // System.out.println(endpointDetails.toString());
-
         return "pages/account/login";
     }
 

@@ -9,23 +9,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.ahihi.entities.User;
 import com.example.ahihi.sevices.AdminService;
+import com.example.ahihi.sevices.RoomService;
 import com.example.ahihi.sevices.UserService;
 
 @Controller
 public class AdminController {
-
-    private final UserService userService;
-
-    public AdminController(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private RoomService roomService;
 
     @Autowired
     AdminService adminService;
 
     @GetMapping(value = "/admin")
     public String indexPage(Model model) {
-        adminService.getEndpointsServices("AdminController");
+        model.addAttribute("roomCount", roomService.roomCount());
+        model.addAttribute("availableRoomCount", roomService.availableRoomCount());
+        model.addAttribute("rentedRoomCount", roomService.rentRoomCount());
+        model.addAttribute("repairRoomCount",
+                roomService.roomCount() - (roomService.availableRoomCount() +
+                        roomService.rentRoomCount()));
         return "admin/dashboard";
     }
 

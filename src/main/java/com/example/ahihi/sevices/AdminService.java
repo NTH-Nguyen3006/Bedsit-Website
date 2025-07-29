@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import com.example.ahihi.entities.Room;
+
 @Component
 public class AdminService {
 
@@ -52,7 +54,6 @@ public class AdminService {
             if (controllerClassName.equals(controllerName)) {
                 String endpoint = finalUrlPatterns;
                 String title = "";
-
                 endpointMap.put(endpoint, title);
                 endpointDetails.add(endpointMap);
             }
@@ -64,8 +65,7 @@ public class AdminService {
 
         }
 
-        System.out.println(endpointDetails.toString());
-
         return null;
     }
+
 }

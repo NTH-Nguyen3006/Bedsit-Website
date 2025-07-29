@@ -4,24 +4,28 @@
 <head>
     <title layout:title-pattern="$CONTENT_TITLE">Admin</title>
     <style>
-        .list-unstyled>li {
-            background-color: var(--bs-tertiary-bg);
-            padding: 10px;
+        ul.list-unstyled>li.nav-item {
+            border-radius: 10px;
             transition: all .3s ease;
         }
 
-        .list-unstyled li:hover {
-            transition: all .3s ease;
-            background-color: #5f5f5f;
+        ul.list-unstyled a.nav-link {
+            width: 100%;
+            padding: 1em;
         }
 
-        .list-unstyled .bi {
+        ul.list-unstyled>li.nav-item:hover {
+            transition: all .3s ease;
+            background-color: var(--bs-secondary-bg);
+        }
+
+        ul.list-unstyled .bi {
             margin-right: 10px;
         }
     </style>
 </head>
 
-<div class="bd-gutter my-md-4 bd-layout h-100" style="grid-template-columns: 1fr 7fr;" layout:fragment="content-block">
+<div class="bd-gutter bd-layout h-100" style="grid-template-columns: 1fr 7fr;" layout:fragment="content-block">
     <aside class="sticky-top " style="min-width: calc(15rem - 30px);" layout:fragment="aside">
         <div class="offcanvas-lg offcanvas-start bg-body-tertiary" tabindex="-1" id="bdSidebar"
             aria-labelledby="bdSidebarOffcanvasLabel">
@@ -32,10 +36,10 @@
             </div>
             <div class="offcanvas-body ">
                 <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
-                    <ul class="bd-links-nav list-unstyled mb-0 pb-3 ">
+                    <ul class="bd-links-nav list-unstyled mb-0 ">
                         <li class="bd-links-group">
                             <ul class="list-unstyled">
-                                <li>
+                                <li class="nav-item">
                                     <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
                                         <svg class="bi" width="16" height="16" fill="currentColor">
                                             <use th:xlink:href="@{/bootstrap/grid-fill.svg}" />
@@ -43,7 +47,7 @@
                                         Bảng điều hướng
                                     </a>
                                 </li>
-                                <li>
+                                <li class="nav-item">
                                     <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
                                         <svg class="bi" width="16" height="16" fill="currentColor">
                                             <use th:xlink:href="@{/bootstrap/house-add-fill.svg}" />
@@ -51,14 +55,14 @@
                                         Phòng Trọ
                                     </a>
                                 </li>
-                                <li>
+                                <li class="nav-item">
                                     <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
                                         <svg class="bi" width="16" height="16" fill="currentColor">
                                             <use th:xlink:href="@{/bootstrap/chat-right-text-fill.svg}" />
                                         </svg>
                                         Đánh Giá </a>
                                 </li>
-                                <li>
+                                <li class="nav-item">
                                     <a th:href="@{/admin}" class="nav-link d-inline-block rounded">
                                         <svg class="bi" width="16" height="16" fill="currentColor">
                                             <use th:xlink:href="@{/bootstrap/people-fill.svg}" />
