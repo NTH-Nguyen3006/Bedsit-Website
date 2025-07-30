@@ -7,32 +7,34 @@
 
 <div class="container-xxl" layout:fragment="admin-main-content">
     <br>
+    <h2 class="me-auto fw-bold text-uppercase">Quản lý người dùng</h2>
     <div class="d-flex">
-        <h2 class="me-auto fw-bold text-uppercase">Quản lý người dùng</h2>
-        <a th:href="@{/admin/user/create}" class="btn btn-primary rounded-5 align-content-center">Tạo người dùng</a>
+        <h4 class="me-auto"><b>Tổng</b>: <span th:text="${users.size()}"></span></h4>
+        <a th:href="@{/admin/user/create}" class="btn btn-primary">
+            <svg class="bi me-1">
+                <use th:xlink:href="@{/bootstrap/plus-lg.svg}"></use>
+            </svg> Tạo mới</a>
     </div>
 
-    <div class="mt-5">
-        <table class="table table-hover">
+    <div class="mt-5 overflow-x-auto">
+        <table class="table table-hover" style="min-width: 50em ;">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
                     <th scope="col">Tài khoản</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Họ và tên</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Hoạt động</th>
                 </tr>
             </thead>
             <tbody th:each="user : ${users}">
-                <tr>
-                    <th scope="row" th:text="${user.id}">1</th>
-                    <td th:text="${user.username}"></td>
-                    <td th:text="${user.email}"></td>
+                <tr class="lh-lg">
+                    <th scope="row" th:text="${user.username}"></th>
+                    <td th:text="${user.fullName}"></td>
                     <td th:text="${user.phoneNumber}"></td>
                     <td>
-                        <a href="" class="btn btn-success">Xem</a>
-                        <a href="" class="btn btn-warning">Sửa</a>
-                        <a href="" class="btn btn-danger">Xóa</a>
+                        <a th:href="@{'./user/' + ${user.id}}" class="btn btn-success">Xem</a>
+                        <a th:href="@{./user/update/{id}(id=${user.id})}" class="btn btn-warning">Sửa</a>
+                        <a th:href="@{./user/delete/{id}(id=${user.id})}" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
             </tbody>

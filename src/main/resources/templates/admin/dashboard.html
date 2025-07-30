@@ -61,6 +61,18 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-md-6 col-lg-4 col-sm-12">
+			<div class="card border-0 p-0 shadow h-100">
+				<div class="card-body ">
+					<h5 class="card-title fw-bold text-uppercase">Người dùng</h5>
+					<p class="card-text mb-sm-2">Lượt truy cập:</p>
+					<p class="card-text">Đã xác thực: <span th:text="${userCount}"></span></p>
+				</div>
+				<div class="card-footer d-flex">
+					<a th:href="@{/admin/user}" class="btn btn-primary ms-auto">Xem chi tiết</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

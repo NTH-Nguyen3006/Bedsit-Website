@@ -2,13 +2,82 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{admin/base.html}">
 
 <head>
-    <title layout:title-pattern="$CONTENT_TITLE">Admin | Tạo User</title>
+    <title layout:title-pattern="$CONTENT_TITLE">Admin | Tạo Người dùng</title>
+    <style>
+        label {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <div class="container-xxl mt-3" layout:fragment="admin-main-content">
-    <div class="d-flex">
-        <h1 class="fw-bold me-auto">Tạo User</h1>
-        <a th:href="@{/admin/user}" class="btn btn-secondary align-content-center">Trở về danh sách</a>
+    <a th:href="@{/admin/user}" class="btn btn-secondary mb-lg-3">
+        <svg class="bi me-2">
+            <use th:xlink:href="@{/bootstrap/arrow-90deg-left.svg}"></use>
+        </svg>
+        Trở về danh sách
+    </a>
+    <h1 class="fw-bold me-auto text-uppercase mb-lg-3">Tạo Người dùng</h1>
+
+    <form method="post" class="row g-md-3">
+        <div class="col-12 col-sm-4 mb-3">
+            <label for="username" class="form-label">Tên tài khoản</label>
+            <input class="form-control" id="username" placeholder="Tên đăng nhập" required>
+        </div>
+        <div class="col-12 col-sm-4 mb-3">
+            <label for="password" class="form-label">Họ và tên</label>
+            <input class="form-control" id="password" placeholder="Họ và tên">
+        </div>
+        <div class="col-12 col-sm-4 mb-3">
+            <label for="password" class="form-label">Số điện thoại</label>
+            <input class="form-control" id="password" placeholder="Số điện thoại">
+        </div>
+        <div class="col-12 col-sm-4 mb-3">
+            <label for="password" class="form-label">Email</label>
+            <input class="form-control" id="password" placeholder="Email">
+        </div>
+        <div class="col-12 col-sm-3 mb-3">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input class="form-control" id="password" placeholder="Mật khẩu">
+        </div>
+        <div class="col-12 col-sm-2 mb-3">
+            <label for="selectRole" class="form-label">Vai trò</label>
+            <select class="form-select" id="selectRole" required>
+                <option selected>Chọn vai trò</option>
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+            </select>
+        </div>
+
+        <div class="col-12 col-sm-3 mb-3 align-self-end">
+            <button type="submit" class="btn btn-primary ">Xác nhận</button>
+        </div>
+    </form>
+
+    <div class="mt-5" id="RoleManage">
+        <h1 class="fw-bold text-uppercase mb-5">Vai trò - người dùng</h1>
+
+        <table class="table table-hover" style="min-width: 50em;">
+            <thead>
+                <tr>
+                    <th scope="col">Mã vai trò</th>
+                    <th scope="col">Vai trò</th>
+                    <th scope="col">Hoạt động</th>
+                </tr>
+            </thead>
+            <tbody th:each="role : ${roles}">
+                <tr class="lh-lg">
+                    <th scope="row" th:text="${role.id}"></th>
+                    <td th:text="${role.roleName}"></td>
+                    <td>
+                        <a th:href="@{'./user/' + ${user.id}}" class="btn btn-success">Xem</a>
+                        <a th:href="@{./user/update/{id}(id=${user.id})}" class="btn btn-warning">Sửa</a>
+                        <a th:href="@{./user/delete/{id}(id=${user.id})}" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>

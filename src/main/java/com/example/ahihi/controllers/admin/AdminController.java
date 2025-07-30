@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ahihi.entities.User;
+import com.example.ahihi.repository.RoleRepository;
 import com.example.ahihi.sevices.AdminService;
 import com.example.ahihi.sevices.RoomService;
 import com.example.ahihi.sevices.UserService;
@@ -16,6 +17,8 @@ import com.example.ahihi.sevices.UserService;
 @Controller
 @RequestMapping(path = "/admin")
 public class AdminController {
+
+    private final RoleRepository roleRepository;
 
     @Autowired
     private UserService userService;
@@ -25,6 +28,10 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
+    AdminController(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
     @GetMapping(value = { "/", "" })
     public String indexPage(Model model) {
         model.addAttribute("roomCount", roomService.roomCount());
@@ -33,6 +40,7 @@ public class AdminController {
         model.addAttribute("repairRoomCount",
                 roomService.roomCount() - (roomService.availableRoomCount() +
                         roomService.rentRoomCount()));
+        model.addAttribute("userCount", userService.getAllUser().size());
         return "admin/dashboard";
     }
 
@@ -43,7 +51,8 @@ public class AdminController {
     }
 
     @GetMapping(value = "/user/create")
-    public String adminCreateUserPage() {
+    public String adminCreateUserPage(Model model) {
+        model.addAttribute("roles", roleRepository.findAll());
         return "admin/user/create";
     }
 
@@ -53,13 +62,13 @@ public class AdminController {
         return "redirect:/admin/user";
     }
 
-    @GetMapping("/room")
+    @GetMapping(value = "/room")
     public String adminRoomPage(Model model) {
         model.addAttribute("users", this.userService.getAllUser());
         return "admin/room/index";
     }
 
-    @GetMapping("/room/create")
+    @GetMapping(value = "/room/create")
     public String adminRoomCreatePage(Model model) {
         model.addAttribute("users", this.userService.getAllUser());
         return "admin/room/create";

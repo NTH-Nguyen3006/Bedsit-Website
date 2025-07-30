@@ -1,5 +1,10 @@
 package com.example.ahihi.entities;
 
+import java.sql.Date;
+
+import org.springframework.data.annotation.CreatedDate;
+
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +35,10 @@ public class User {
     String password;
     String fullName;
     String phoneNumber;
+
+    @CreatedDate
+    @Nonnull
+    Date createAt;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
