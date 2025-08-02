@@ -18,7 +18,7 @@
         Trở về danh sách
     </a>
     <h1 class="fw-bold me-auto text-uppercase mb-lg-3">Tạo Người dùng</h1>
-
+    <hr class="mt-1">
     <form method="post" class="row g-md-3">
         <div class="col-12 col-sm-4 mb-3">
             <label for="username" class="form-label">Tên tài khoản</label>
@@ -56,13 +56,20 @@
     </form>
 
     <div class="mt-5" id="RoleManage">
-        <h1 class="fw-bold text-uppercase mb-5">Vai trò - người dùng</h1>
-
+        <h1 class="fw-bold text-uppercase ">Vai trò - người dùng</h1>
+        <hr class="mt-1">
+        <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <svg class="bi">
+                <use th:xlink:href="@{/bootstrap/plus-lg.svg}"></use>
+            </svg>
+            Thêm vai trò
+        </button>
         <table class="table table-hover" style="min-width: 50em;">
             <thead>
                 <tr>
                     <th scope="col">Mã vai trò</th>
                     <th scope="col">Vai trò</th>
+                    <th scope="col">Mô tả</th>
                     <th scope="col">Hoạt động</th>
                 </tr>
             </thead>
@@ -70,14 +77,44 @@
                 <tr class="lh-lg">
                     <th scope="row" th:text="${role.id}"></th>
                     <td th:text="${role.roleName}"></td>
+                    <td th:text="${role.decription}"></td>
                     <td>
-                        <a th:href="@{'./user/' + ${user.id}}" class="btn btn-success">Xem</a>
-                        <a th:href="@{./user/update/{id}(id=${user.id})}" class="btn btn-warning">Sửa</a>
-                        <a th:href="@{./user/delete/{id}(id=${user.id})}" class="btn btn-danger">Xóa</a>
+                        <a th:href="@{'./user/' + ${role.id}}" class="btn btn-success">Xem</a>
+                        <a th:href="@{./role/update/{id}(id=${role.id})}" class="btn btn-warning">Sửa</a>
+                        <a th:href="@{./role/delete/{id}(id=${role.id})}" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fw-bold fs-5" id="exampleModalLabel">Tạo vai trò người dùng</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" class="row g-md-3" id="create-role">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nhận diện vai trò</label>
+                                <input class="form-control" id="username" placeholder="Tên vai trò" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Mô tả vai trò</label>
+                                <input class="form-control" id="password" placeholder="Mô tả">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary">Tạo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
     </div>
 
 </div>

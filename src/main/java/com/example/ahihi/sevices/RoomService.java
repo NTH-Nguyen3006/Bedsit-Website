@@ -1,8 +1,11 @@
 package com.example.ahihi.sevices;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.ahihi.entities.Room;
 import com.example.ahihi.repository.RoomRepository;
 
 @Service
@@ -22,5 +25,9 @@ public class RoomService {
 
     public int rentRoomCount() {
         return roomRepository.findByStatus((byte) 0).size();
+    }
+
+    public List<Room> getAllRoom() {
+        return this.roomRepository.findAll();
     }
 }
