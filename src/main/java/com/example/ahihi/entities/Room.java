@@ -2,6 +2,8 @@ package com.example.ahihi.entities;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,15 +27,19 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "rooms")
+@JsonFormat
 public class Room {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    String id;
     double area;
     short status;
 
     @Column(length = 50, nullable = false)
     String roomType;
+
+    @Column(columnDefinition = "text")
+    String decription;
 
     enum Status {
         Available, Rent, Repair

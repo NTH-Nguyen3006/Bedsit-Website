@@ -23,7 +23,7 @@ public class SecurityConfig {
 				.oauth2Login(oauth2 -> oauth2.loginPage("/account/login").permitAll()
 						.defaultSuccessUrl("/"))
 				.logout(logout -> logout.permitAll())
-				// .csrf(csrf -> csrf.disable())
+				.csrf(csrf -> csrf.disable())
 				.build();
 	}
 }
