@@ -21,12 +21,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.ahihi.entities.Room;
 import com.example.ahihi.entities.RoomDetails;
 import com.example.ahihi.sevices.RoomService;
+import com.example.ahihi.sevices.StorageService;
 
 @Controller
 @RequestMapping(path = "/admin/room")
 public class AdminRoomController {
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private StorageService storageService;
 
     @GetMapping(value = { "", "/" })
     public String adminRoomPage(Model model) {
@@ -49,31 +53,23 @@ public class AdminRoomController {
             @RequestParam("description") String description,
             @RequestParam("status") int status,
             @RequestParam("images") List<MultipartFile> images) {
+
         Room room = Room.builder()
                 .id(roomId).area(area).roomType(roomType)
                 .decription(description).status((short) status)
                 .build();
 
-        System.out.println(this.getClass().getResource("/").getPath());
-        // if (!Files.exists(uploadPath))
-        // try {
-        // Files.createDirectories(uploadPath);
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
-        // System.out.println(uploadPath.toString());
+        for (MultipartFile img : images) {
+            System.out.println(roomId.getClass());
+            String filename = String.format("room%s-%d.png", roomId, new Date().getTime());
+            storageService.uploadFile(img, filename);
+            RoomDetails rDetails = RoomDetails.builder()
+                    .imageURL(filename)
+                    .build();
+            room.getRoomDetails().add(rDetails);
+        }
 
-        // images.forEach(img -> {
-        // // System.out.println(img.getOriginalFilename());
-        // // RoomDetails.builder().imageURL("");
-        // Path filePath = uploadPath.resolve(roomId + "-" + new Date().getTime());
-        // try {
-        // Files.copy(img.getInputStream(), filePath,
-        // StandardCopyOption.REPLACE_EXISTING);
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
-        // });
+        roomService.save(room);
 
         return "redirect:./";
     }

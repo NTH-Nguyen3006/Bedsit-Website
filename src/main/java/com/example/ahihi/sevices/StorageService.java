@@ -2,31 +2,36 @@ package com.example.ahihi.sevices;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.ahihi.exception.StorageException;
+
 @Service
 public class StorageService {
-    private String path;
+    private String path = "/var/www/upload/";
 
-    public void uploadFile(MultipartFile file) {
+    public void uploadFile(MultipartFile file, String filename) {
 
         if (file.isEmpty()) {
 
+            throw new StorageException("Failed to store empty file");
         }
         try {
-            var fileName = file.getOriginalFilename();
             var is = file.getInputStream();
+            Path uploadPath = Paths.get(path);
+            if (!Files.exists(uploadPath))
+                Files.createDirectory(Paths.get(path));
 
-            Files.copy(is, Paths.get(path + fileName),
+            Files.copy(is, uploadPath.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-
-            var msg = String.format("Failed to store file %f", file.getName());
-
+            var msg = String.format("Failed to store file %s", file.getName());
+            throw new StorageException(msg, e);
         }
     }
 
