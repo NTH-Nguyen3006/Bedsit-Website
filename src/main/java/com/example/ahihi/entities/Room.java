@@ -4,10 +4,9 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -15,6 +14,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
@@ -28,11 +28,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "rooms")
 @JsonFormat
+@EqualsAndHashCode(exclude = "roomDetails")
 public class Room {
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "roomId", length = 7)
     String id;
     double area;
+    double rentPrice;
     short status;
 
     @Column(length = 50, nullable = false)
@@ -45,6 +47,6 @@ public class Room {
         Available, Rent, Repair
     }
 
-    @OneToMany(mappedBy = "room")
-    private Set<RoomDetails> roomDetails;
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<RoomDetails> roomDetails;
 }

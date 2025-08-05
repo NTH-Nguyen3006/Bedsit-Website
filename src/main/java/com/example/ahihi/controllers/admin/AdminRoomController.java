@@ -1,11 +1,7 @@
 package com.example.ahihi.controllers.admin;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,7 +35,7 @@ public class AdminRoomController {
 
     @GetMapping(value = "/create")
     public String adminRoomCreatePage(Model model) {
-        model.addAttribute("rooms", this.roomService.getAllRoom());
+        // model.addAttribute("rooms", this.roomService.getAllRoom());
         return "admin/room/create";
     }
 
@@ -59,18 +54,21 @@ public class AdminRoomController {
                 .decription(description).status((short) status)
                 .build();
 
+        RoomDetails rDetail;
+        java.util.Set<RoomDetails> roomDetails = new HashSet<>();
+        int t = 0;
         for (MultipartFile img : images) {
-            System.out.println(roomId.getClass());
-            String filename = String.format("room%s-%d.png", roomId, new Date().getTime());
+            String filename = String.format("room%s-%d-%d.png", roomId, ++t, new Date().getTime());
             storageService.uploadFile(img, filename);
-            RoomDetails rDetails = RoomDetails.builder()
-                    .imageURL(filename)
-                    .build();
-            room.getRoomDetails().add(rDetails);
+            rDetail = new RoomDetails();
+            rDetail.setImageURL(filename);
+            rDetail.setRoom(room);
+            roomDetails.add(rDetail);
         }
 
+        room.setRoomDetails(roomDetails);
         roomService.save(room);
 
-        return "redirect:./";
+        return "redirect:./index.html";
     }
 }

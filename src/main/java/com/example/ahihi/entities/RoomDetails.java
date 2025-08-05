@@ -1,5 +1,7 @@
 package com.example.ahihi.entities;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,9 +29,11 @@ public class RoomDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+
+    @Column(nullable = false)
     String imageURL;
 
-    @ManyToOne
-    @JoinColumn(name = "roomId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 }

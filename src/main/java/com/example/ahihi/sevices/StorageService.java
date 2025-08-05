@@ -13,20 +13,17 @@ import com.example.ahihi.exception.StorageException;
 
 @Service
 public class StorageService {
-    private String path = "/var/www/upload/";
+    private String path = "var/www/upload/";
 
     public void uploadFile(MultipartFile file, String filename) {
-
-        if (file.isEmpty()) {
-
+        if (file.isEmpty())
             throw new StorageException("Failed to store empty file");
-        }
         try {
             var is = file.getInputStream();
-            Path uploadPath = Paths.get(path);
-            if (!Files.exists(uploadPath))
-                Files.createDirectory(Paths.get(path));
-
+            Path uploadPath = Paths.get(this.path);
+            if (!Files.exists(uploadPath)) {
+                uploadPath = Files.createDirectories(uploadPath);
+            }
             Files.copy(is, uploadPath.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
@@ -35,4 +32,7 @@ public class StorageService {
         }
     }
 
+    public void getImage() {
+
+    }
 }

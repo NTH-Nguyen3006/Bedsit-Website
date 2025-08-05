@@ -36,10 +36,10 @@
             </thead>
             <tbody th:each="room : ${rooms}">
                 <tr class="lh-lg">
-                    <th scope="row" th:text="${room.username}"></th>
-                    <td th:text="${room.fullName}"></td>
-                    <td th:text="${room.fullName}"></td>
-                    <td th:text="${room.phoneNumber}"></td>
+                    <td th:text="${room.id}"></td>
+                    <td th:text="${room.rentPrice}"></td>
+                    <th scope="row" th:text="${room.roomType}"></th>
+                    <td th:text="${room.status}"></td>
                     <td>
                         <a th:href="@{'./room/' + ${room.id}}" class="btn btn-success">Xem</a>
                         <a th:href="@{./room/update/{id}(id=${room.id})}" class="btn btn-warning">Sửa</a>

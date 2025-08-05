@@ -3,10 +3,35 @@
 
 <head>
     <title layout:title-pattern="$CONTENT_TITLE">Admin | Thêm phòng</title>
-    <script src="https://cdn.tiny.cloud/1/cysxosndxu60zk3yax2kz9u6hjmdn0cuxw0ipk9ajny70m7e/tinymce/8/tinymce.min.js"
-        referrerpolicy="origin" crossorigin="anonymous"></script>
-    <!-- <meta name="_csrf" th:content="${_csrf.token}" />
-    <meta name="_csrf_header" th:content="${_csrf.headerName}" /> -->
+
+    <style>
+        #image-uploaded-box {
+            cursor: pointer;
+        }
+
+        #image-uploaded-box>button {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform: translate(50%, -50%);
+            right: 50%;
+            top: 50%;
+        }
+
+        #image-uploaded-box:hover>button {
+            display: block;
+        }
+
+        #image-uploaded-box>img,
+        #image-uploaded-box>button {
+            transition: .3s ease;
+        }
+
+        #image-uploaded-box:hover>img {
+            opacity: .35;
+        }
+    </style>
 </head>
 
 <div class="container-xxl" layout:fragment="admin-main-content">
@@ -16,7 +41,20 @@
     <hr class="mt-0">
 
     <p class="fw-bold">Thêm Hình Ảnh Mô Tả:</p>
+
     <div class="mb-5 g-2 row" id="upload-images-box">
+        <!-- <div class="col-lg-2 col-md-3 col-sm-6">
+            <div class="shadow rounded-3 position-relative" id="image-uploaded-box"
+                style="width: 100%; height: 140px; max-width: 200px; border: 2px solid #b3b3b3;">
+                <button class="btn px-1 py-0 fs-1 z-1" onclick="removeImage(this)">
+                    <svg class="bi" viewBox="0 0 16 16" fill="currentColor">
+                        <use th:xlink:href="@{/bootstrap/x-circle-fill.svg}"></use>
+                    </svg>
+                </button>
+                <img id="image-uploaded" src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg"
+                    class="w-100 h-100">
+            </div>
+        </div> -->
         <div class="col-lg-2 col-md-3 col-sm-6">
             <div class="shadow rounded-3 position-relative" id="upload-image-box"
                 style="cursor: pointer; width: 100%; height: 140px; max-width: 200px; border: 2px solid #b3b3b3;">
@@ -29,19 +67,19 @@
     <div class="row g-3">
         <div class="col-lg-2 col-sm-12 mb-3">
             <label class="fw-bold" for="room-id">Mã nhận diện </label>
-            <input class="form-control" type="text" id="room-id">
+            <input class="form-control" type="text" id="room-id" value="1">
         </div>
         <div class="col-lg-2 col-sm-12 mb-3">
             <label class="fw-bold" for="area">Diện tích (m<sup>2</sup>)</label>
-            <input class="form-control" type="number" id="area">
+            <input class="form-control" type="number" id="area" value="1">
         </div>
-        <div class="col-lg-3 col-sm-12 mb-3">
+        <div class="col-lg-3 col-sm-12 mb-3 ">
             <label class="fw-bold" for="room-type">Mô Tả Kiểu Phòng</label>
-            <input class="form-control" type="text" id="room-type">
+            <input class="form-control" type="text" id="room-type" value="1">
         </div>
         <div class="col-lg-3 col-sm-12 mb-3">
             <label class="fw-bold" for="rent-price">Giá Thuê (VNĐ)</label>
-            <input class="form-control" type="number" id="rent-price">
+            <input class="form-control" type="number" id="rent-price" value="1">
         </div>
         <div class="col-lg-2 col-sm-12 mb-3">
             <label class="fw-bold" for="room-status">Trạng thái</label>
@@ -54,7 +92,7 @@
 
         <div class="col-12 mb-3">
             <label class="fw-bold" for="description">Viết Mô Tả</label>
-            <textarea name="description" id="description"></textarea>
+            <textarea name="description" id="description">123123123123123</textarea>
         </div>
 
         <div class="">
@@ -73,31 +111,46 @@
                 toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
             });
 
+            function removeImage(e) {
+                console.log(1234);
+
+                console.log(e);
+                console.log(this.id.slice(-1) - 1);
+            }
+
             function fileChooser() {
                 const inputFile = document.createElement("input");
                 inputFile.type = "file";
                 inputFile.accept = "image/*";
                 inputFile.multiple = true;
                 inputFile.onchange = (e) => {
-                    for (const file of e.target.files) {
-                        images.push(file);
-
+                    const files = e.target.files;
+                    for (let i = files.length - 1; i >= 0; i--) {
                         const reader = new FileReader();
+                        images.push(files[i]);
                         reader.onload = (e) => {
                             const imageUploadHtml = `<div class="col-lg-2 col-md-3 col-sm-6">
-                            <div class="shadow rounded-3" id="upload-images-box"
-                                style="cursor: pointer; width: 100%; height: 140px; max-width: 200px; border: 2px solid #b3b3b3;">
+                            <div class="shadow rounded-3 position-relative" id="image-uploaded-box"
+                                style="width: 100%; height: 140px; max-width: 200px; border: 2px solid #b3b3b3;">
+                                <button class="btn px-1 py-0 fs-1 z-1" id="item-${i + 1}">
+                                    <svg class="bi" viewBox="0 0 16 16" fill="currentColor">
+                                        <use xlink:href="/bootstrap/x-circle-fill.svg"></use>
+                                    </svg>
+                                </button>
                                 <img src="${e.target.result}" class="w-100 h-100">
-                            </div>
-                        </div>`;
+                            </div> </div>`;
 
+                            const uploadImgBox = document.getElementById("upload-images-box");
                             const imageUploadElement = new DOMParser().parseFromString(
                                 imageUploadHtml, "text/html").body.firstChild;
-                            const uploadImgBox = document.getElementById("upload-images-box");
+
+                            console.log(imageUploadElement.querySelector("button.btn"));
+
+                            imageUploadElement.querySelector("button.btn").addEventListener("click", removeImage);
                             uploadImgBox.prepend(imageUploadElement);
                         }
 
-                        reader.readAsDataURL(file);
+                        reader.readAsDataURL(files[i]);
 
                     }
                 };
@@ -108,7 +161,8 @@
             document.getElementById("upload-image-box").addEventListener("click", fileChooser);
 
             window.addEventListener("load", () => { // Kích hoạt khi web load xong hết
-                document.getElementsByClassName("tox-statusbar")[0].classList.add("d-none");
+                document.getElementsByClassName("tox-statusbar")[0].style = "width: 0";
+                document.getElementsByClassName("tox-promotion")[0].classList.add("d-none");
             });
 
             document.getElementById("save-btn").addEventListener("click", () => {
@@ -124,28 +178,20 @@
                 data.append("roomType", roomType);
                 data.append("area", roomArea);
                 data.append("rentPrice", rentPrice);
-                data.append("description", description);
+                data.append("description", decription);
                 data.append("status", roomStatus);
 
                 images.forEach(img => data.append("images", img));
 
-
                 fetch('/admin/room/create', { // Tạo một endpoint mới để xử lý FormData
                     method: 'POST',
-                    // 'Content-Type' header khg cần thiết khi dùng FormData,
-                    // headers: {
-                    // },
-                    // trình duyệt sẽ tự động thêm nó với boundary thích hợp.
                     body: data,
                 })
                     .then(response => {
-                        alert("Gửi dữ liệu thành công")
                     })
                     .catch(error => {
                         alert(error)
                     });
-
-
             });
 
         </script>
