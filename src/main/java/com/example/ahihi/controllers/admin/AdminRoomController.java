@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +34,13 @@ public class AdminRoomController {
         return "admin/room/index";
     }
 
+    @GetMapping(value = "/{id}")
+    public String adminRoomDetailPage(Model model, @PathVariable("id") String id) {
+        model.addAttribute("room", this.roomService.getRoomById(id));
+
+        return "admin/room/detail";
+    }
+
     @GetMapping(value = "/create")
     public String adminRoomCreatePage(Model model) {
         // model.addAttribute("rooms", this.roomService.getAllRoom());
@@ -52,10 +60,11 @@ public class AdminRoomController {
         Room room = Room.builder()
                 .id(roomId).area(area).roomType(roomType)
                 .decription(description).status((short) status)
+                .rentPrice(rentPrice).roomDetails(new HashSet<>())
                 .build();
 
         RoomDetails rDetail;
-        java.util.Set<RoomDetails> roomDetails = new HashSet<>();
+        // java.util.Set<RoomDetails> roomDetails = new HashSet<>();
         int t = 0;
         for (MultipartFile img : images) {
             String filename = String.format("room%s-%d-%d.png", roomId, ++t, new Date().getTime());
@@ -63,12 +72,13 @@ public class AdminRoomController {
             rDetail = new RoomDetails();
             rDetail.setImageURL(filename);
             rDetail.setRoom(room);
-            roomDetails.add(rDetail);
+            room.getRoomDetails().add(rDetail);
+            // roomDetails.add(rDetail);
         }
 
-        room.setRoomDetails(roomDetails);
+        // room.setRoomDetails(roomDetails);
         roomService.save(room);
 
-        return "redirect:./index.html";
+        return "redirect:/";
     }
 }

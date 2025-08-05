@@ -32,10 +32,10 @@ public class RoomService {
     }
 
     public Room save(Room room) {
-        // room.getRoomDetails().forEach(rd -> {
-        // rDetailsRepository.save(rd);
-        // });
-
         return this.roomRepository.save(room);
+    }
+
+    public Room getRoomById(String id) {
+        return this.roomRepository.findRoomById(id);
     }
 }

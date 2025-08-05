@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.ahihi.repository.RoleRepository;
 import com.example.ahihi.sevices.AdminService;
 import com.example.ahihi.sevices.RoomService;
 import com.example.ahihi.sevices.UserService;

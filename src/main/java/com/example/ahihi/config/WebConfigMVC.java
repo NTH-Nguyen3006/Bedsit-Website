@@ -9,8 +9,6 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import jakarta.servlet.MultipartConfigElement;
-
 @Configuration
 @EnableWebMvc
 public class WebConfigMVC implements WebMvcConfigurer {
@@ -39,6 +37,9 @@ public class WebConfigMVC implements WebMvcConfigurer {
 
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("classpath:/static/images");
+
+        registry.addResourceHandler("/upload/**")
+                .addResourceLocations("file:./var/www/upload/");
     }
 
 }

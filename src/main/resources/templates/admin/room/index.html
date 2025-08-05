@@ -36,9 +36,9 @@
             </thead>
             <tbody th:each="room : ${rooms}">
                 <tr class="lh-lg">
-                    <td th:text="${room.id}"></td>
+                    <th th:text="${room.id}" scope="row"></th>
                     <td th:text="${room.rentPrice}"></td>
-                    <th scope="row" th:text="${room.roomType}"></th>
+                    <td th:text="${room.roomType}"></td>
                     <td th:text="${room.status}"></td>
                     <td>
                         <a th:href="@{'./room/' + ${room.id}}" class="btn btn-success">Xem</a>

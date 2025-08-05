@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{admin/base.html}">
+
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE">Admin | Phòng trọ</title>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
+    <textarea id="mytextarea">Hello, World!</textarea>
+
+</head>
+
+<div class="container-xxl" layout:fragment="admin-main-content">
+    <div class="row">
+        <div class="col-lg-8">
+            <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img th:src="@{/upload/{url}(url=${room.roomDetails[0].imageURL})}" class="d-block w-100"
+                            alt="Ảnh phòng trọ">
+                    </div>
+                    <div class="carousel-item" th:each="detail, stat : ${room.roomDetails}" th:if="${stat.index > 0}">
+                        <img th:src="@{/upload/{url}(url=${detail.imageURL})}" class="d-block w-100"
+                            alt="Ảnh phòng trọ">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <h2>Phòng trọ cao cấp Quận 1</h2>
+            <p class="text-muted">123 Đường ABC, Phường XYZ, Quận 1, TP.HCM</p>
+            <h3 class="text-primary">5.000.000 VNĐ/tháng</h3>
+            <p><strong>Diện tích:</strong> 25m²</p>
+            <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-half text-warning"></i>
+                <i class="bi bi-star text-warning"></i>
+                <span class="ms-2">4.5 (15 đánh giá)</span>
+            </div>
+            <button class="btn btn-success w-100">Liên hệ: 0987 654 321</button>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                        data-bs-target="#description" type="button">Mô tả</button>
+                </li>
+                <!-- <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="amenities-tab" data-bs-toggle="tab" data-bs-target="#amenities"
+                            type="button">Tiện nghi</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="map-tab" data-bs-toggle="tab" data-bs-target="#map"
+                            type="button">Bản đồ</button>
+                    </li> -->
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active p-3" id="description">
+                    <p>Nội dung mô tả chi tiết về phòng trọ...</p>
+                </div>
+                <!-- <div class="tab-pane fade p-3" id="amenities">
+                        <ul>
+                            <li><i class="bi bi-wifi"></i> Wifi tốc độ cao</li>
+                            <li><i class="bi bi-snow"></i> Máy điều hòa</li>
+                            ...
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade p-3" id="map">
+                        <p>Bản đồ sẽ được nhúng vào đây.</p>
+                    </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</html>
