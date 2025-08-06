@@ -35,7 +35,14 @@
 </head>
 
 <div class="container-xxl" layout:fragment="admin-main-content">
-    <div class="d-flex mt-5 align-items-center">
+    <a th:href="@{./}" class="btn btn-secondary mb-5">
+        <svg class="bi me-2">
+            <use th:xlink:href="@{/bootstrap/arrow-90deg-left.svg}"></use>
+        </svg>
+        Trở lại
+    </a>
+
+    <div class="d-flex  align-items-center">
         <h1 class="text-uppercase fw-bolder">thêm phòng trọ</h1>
     </div>
     <hr class="mt-0">
@@ -78,7 +85,7 @@
         </div>
         <div class="col-lg-3 col-sm-12 mb-3">
             <label class="fw-bold" for="rent-price">Giá Thuê (VNĐ)</label>
-            <input class="form-control" type="number" id="rent-price" value="1">
+            <input class="form-control" type="number" id="rent-price" value="5000000">
         </div>
         <div class="col-lg-2 col-sm-12 mb-3">
             <label class="fw-bold" for="room-status">Trạng thái</label>
@@ -112,13 +119,7 @@
 
             function removeImage() {
                 const clickedItems = this.id;
-
-                // images.splice(clickedIndex - 1, 1);
-
-                images = images.filter((v) => {
-                    return !clickedItems.endsWith(v.name);
-                });
-
+                images = images.filter((v) => !clickedItems.endsWith(v.name));
                 $(this).parent().parent().remove();
             }
 
@@ -169,7 +170,7 @@
                 const roomId = document.getElementById("room-id").value;
                 const roomType = document.getElementById("room-type").value;
                 const roomArea = document.getElementById("area").value;
-                const rentPrice = document.getElementById("room-type").value;
+                const rentPrice = document.getElementById("rent-price").value;
                 const decription = tinymce.activeEditor.getContent();
                 const roomStatus = document.getElementById("room-status").value;
                 const data = new FormData();

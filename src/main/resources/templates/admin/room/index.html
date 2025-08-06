@@ -13,9 +13,16 @@
 </head>
 
 <div class="container-xxl" layout:fragment="admin-main-content">
+    <a th:href="@{/admin}" class="btn btn-secondary mb-5">
+        <svg class="bi me-2">
+            <use th:xlink:href="@{/bootstrap/arrow-90deg-left.svg}"></use>
+        </svg>
+        Trở lại
+    </a>
+
     <div class="d-flex mt-5 align-items-center">
         <h1 class="text-uppercase fw-bolder">Phòng trọ</h1>
-        <a th:href="@{./room/create}" class="btn btn-primary ms-auto">
+        <a th:href="@{./create}" class="btn btn-primary ms-auto">
             <svg class="bi me-1">
                 <use th:xlink:href="@{/bootstrap/plus-lg.svg}"></use>
             </svg>
@@ -37,19 +44,20 @@
             <tbody th:each="room : ${rooms}">
                 <tr class="lh-lg">
                     <th th:text="${room.id}" scope="row"></th>
-                    <td th:text="${room.rentPrice}"></td>
+                    <td th:inline="text">
+                        [[${#numbers.formatDecimal(room.rentPrice, 0, 'COMMA', 0, 'POINT')}]]
+                    </td>
                     <td th:text="${room.roomType}"></td>
                     <td th:text="${room.status}"></td>
                     <td>
-                        <a th:href="@{'./room/' + ${room.id}}" class="btn btn-success">Xem</a>
-                        <a th:href="@{./room/update/{id}(id=${room.id})}" class="btn btn-warning">Sửa</a>
-                        <a th:href="@{./room/delete/{id}(id=${room.id})}" class="btn btn-danger">Xóa</a>
+                        <a th:href="@{'/admin/room/' + ${room.id}}" class="btn btn-success">Xem</a>
+                        <a th:href="@{/admin/room/update/{id}(id=${room.id})}" class="btn btn-warning">Sửa</a>
+                        <a th:href="@{/admin/room/delete/{id}(id=${room.id})}" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
 </div>
 
 

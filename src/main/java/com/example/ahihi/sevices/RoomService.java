@@ -18,7 +18,6 @@ public class RoomService {
     }
 
     public int availableRoomCount() {
-        // 0 -> đã thuê, 1 -> chưa thuê;
         return this.roomCount()
                 - (this.rentRoomCount() + roomRepository.findByStatus((byte) 2).size());
     }

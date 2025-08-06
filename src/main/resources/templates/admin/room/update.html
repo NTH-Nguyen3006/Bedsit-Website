@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{admin/base.html}">
+
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE">Admin | Thêm phòng</title>
+
+    <style>
+        #image-uploaded-box {
+            cursor: pointer;
+        }
+
+        #image-uploaded-box>button {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform: translate(50%, -50%);
+            right: 50%;
+            top: 50%;
+        }
+
+        #image-uploaded-box:hover>button {
+            display: block;
+        }
+
+        #image-uploaded-box>img,
+        #image-uploaded-box>button {
+            transition: .3s ease;
+        }
+
+        #image-uploaded-box:hover>img {
+            opacity: .35;
+        }
+    </style>
+</head>
+
+<div class="container-xxl" layout:fragment="admin-main-content">
+    <div class="d-flex mt-5 align-items-center">
+        <h1 class="text-uppercase fw-bolder">thêm phòng trọ</h1>
+    </div>
+    <hr class="mt-0">
+
+    <p><b>Thêm Hình Ảnh Mô Tả:</b> (<i>Lưu ý: Nên đặt ảnh có cùng kích thước. Nên Ưu tên kích thước 600x400</i> )</p>
+
+    <div class="mb-5 g-2 row-cols-2 row" id="upload-images-box">
+        <div class="col-lg-2 col-md-3 col-sm-6" th:each="detail : ${room.roomDetails}">
+            <div class="shadow rounded-3 position-relative" id="image-uploaded-box"
+                style="width: 100%; height: 140px; max-width: 200px; border: 2px solid #b3b3b3;">
+                <button class="btn px-1 py-0 fs-1 z-1" id="item-${i + 1}-{file[i].name}">
+                    <svg class="bi" viewBox="0 0 16 16" fill="currentColor">
+                        <use xlink:href="/bootstrap/x-circle-fill.svg"></use>
+                    </svg>
+                </button>
+                <img th:src="@{/upload/{url}(url=${detail.imageURL})}" class="w-100 h-100">
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-6">
+            <div class="shadow rounded-3 position-relative" id="upload-image-box"
+                style="cursor: pointer; width: 100%; height: 140px; max-width: 200px; border: 2px solid #b3b3b3;">
+                <img class="position-absolute end-50" th:src="@{/images/icons/plus-gadient.png}" width="100"
+                    style="transform: translate(50%, 15px);">
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-2 col-sm-12 mb-3">
+            <label class="fw-bold" for="room-id">Mã nhận diện </label>
+            <input class="form-control" type="text" id="room-id" th:value="${room.id}">
+        </div>
+        <div class="col-lg-2 col-sm-12 mb-3">
+            <label class="fw-bold" for="area">Diện tích (m<sup>2</sup>)</label>
+            <input class="form-control" type="number" id="area" th:value="${room.area}">
+        </div>
+        <div class="col-lg-3 col-sm-12 mb-3 ">
+            <label class="fw-bold" for="room-type">Mô Tả Kiểu Phòng</label>
+            <input class="form-control" type="text" id="room-type" th:value="${room.roomType}">
+        </div>
+        <div class="col-lg-3 col-sm-12 mb-3">
+            <label class="fw-bold" for="rent-price">Giá Thuê (VNĐ)</label>
+            <input class="form-control" type="number" id="rent-price" th:value="${room.rentPrice}">
+        </div>
+        <div class="col-lg-2 col-sm-12 mb-3">
+            <label class="fw-bold" for="room-status">Trạng thái</label>
+            <select class="form-select" id="room-status" aria-label="room-status">
+                <option value="0" th:selected="${room.status == 0}">Chưa thuê</option>
+                <option value="1" th:selected="${room.status == 1}">Đã Thuê </option>
+                <option value=" 2" th:selected="${room.status == 2}">Đang sửa chửa</option>
+            </select>
+        </div>
+
+        <div class="col-12 mb-3">
+            <label class="fw-bold" for="description">Viết Mô Tả</label>
+            <textarea name="description" id="description">[[${room.decription}]]</textarea>
+        </div>
+
+        <div class="">
+            <button class="btn btn-secondary me-3">Hủy</button>
+            <button class="btn btn-success" id="save-btn">Lưu</button>
+        </div>
+    </div>
+    <br><br>
+
+    <div layout:fragment="script-block">
+        <script src="https://cdn.tiny.cloud/1/cysxosndxu60zk3yax2kz9u6hjmdn0cuxw0ipk9ajny70m7e/tinymce/8/tinymce.min.js"
+            referrerpolicy="origin" crossorigin="anonymous"></script>
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            });
+
+            function removeImage() {
+                const clickedItems = this.id;
+                images = images.filter((v) => !clickedItems.endsWith(v.name));
+                $(this).parent().parent().remove();
+            }
+
+            function fileChooser() {
+                const inputFile = document.createElement("input");
+                inputFile.type = "file";
+                inputFile.accept = "image/*";
+                inputFile.multiple = true;
+                inputFile.onchange = (e) => {
+                    const files = e.target.files;
+                    for (let i = files.length - 1; i >= 0; i--) {
+                        const reader = new FileReader();
+                        images.push(files[i]);
+                        reader.onload = (e) => {
+                            const imageUploadHtml = `<div class="col-lg-2 col-md-3 col-sm-6">
+                            <div class="shadow rounded-3 position-relative" id="image-uploaded-box"
+                                style="width: 100%; height: 140px; max-width: 200px; border: 2px solid #b3b3b3;">
+                                <button class="btn px-1 py-0 fs-1 z-1" id="item-${i + 1}-${files[i].name}">
+                                    <svg class="bi" viewBox="0 0 16 16" fill="currentColor">
+                                        <use xlink:href="/bootstrap/x-circle-fill.svg"></use>
+                                    </svg>
+                                </button>
+                                <img src="${e.target.result}" class="w-100 h-100">
+                            </div> </div>`;
+
+                            const uploadImgBox = document.getElementById("upload-images-box");
+                            const imageUploadElement = new DOMParser().parseFromString(
+                                imageUploadHtml, "text/html").body.firstChild;
+
+                            imageUploadElement.querySelector("button.btn").addEventListener("click", removeImage);
+                            uploadImgBox.prepend(imageUploadElement);
+                        }
+                        reader.readAsDataURL(files[i]);
+                    }
+                };
+                inputFile.click();
+            }
+
+            let images = [];
+            document.getElementById("upload-image-box").addEventListener("click", fileChooser);
+
+            window.addEventListener("load", () => { // Kích hoạt khi web load xong hết
+                document.getElementsByClassName("tox-statusbar")[0].style = "width: 0";
+                document.getElementsByClassName("tox-promotion")[0].classList.add("d-none");
+            });
+
+            document.getElementById("save-btn").addEventListener("click", () => {
+                const roomId = document.getElementById("room-id").value;
+                const roomType = document.getElementById("room-type").value;
+                const roomArea = document.getElementById("area").value;
+                const rentPrice = document.getElementById("rent-price").value;
+                const decription = tinymce.activeEditor.getContent();
+                const roomStatus = document.getElementById("room-status").value;
+                const data = new FormData();
+
+                data.append("roomId", roomId);
+                data.append("roomType", roomType);
+                data.append("area", roomArea);
+                data.append("rentPrice", rentPrice);
+                data.append("description", decription);
+                data.append("status", roomStatus);
+
+                images.forEach(img => data.append("images", img));
+
+                fetch('/admin/room/create', { // Tạo một endpoint mới để xử lý FormData
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => {
+                    })
+                    .catch(error => {
+                        alert(error)
+                    });
+            });
+
+        </script>
+    </div>
+</div>
+
+</html>

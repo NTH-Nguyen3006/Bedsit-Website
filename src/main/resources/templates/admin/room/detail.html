@@ -4,16 +4,16 @@
 <head>
     <title layout:title-pattern="$CONTENT_TITLE">Admin | Phòng trọ</title>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: '#mytextarea'
-        });
-    </script>
-    <textarea id="mytextarea">Hello, World!</textarea>
-
 </head>
 
 <div class="container-xxl" layout:fragment="admin-main-content">
+    <a th:href="@{./}" class="btn btn-secondary mb-5">
+        <svg class="bi me-2">
+            <use th:xlink:href="@{/bootstrap/arrow-90deg-left.svg}"></use>
+        </svg>
+        Trở lại
+    </a>
+
     <div class="row">
         <div class="col-lg-8">
             <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -39,9 +39,11 @@
         </div>
 
         <div class="col-lg-4">
-            <h2>Phòng trọ cao cấp Quận 1</h2>
-            <p class="text-muted">123 Đường ABC, Phường XYZ, Quận 1, TP.HCM</p>
-            <h3 class="text-primary">5.000.000 VNĐ/tháng</h3>
+            <h2 th:inline="text">Phòng trọ [[${room.roomType}]]</h2>
+            <!-- <p class="text-muted">123 Đường ABC, Phường XYZ, Quận 1, TP.HCM</p> -->
+            <h3 class="text-primary" th:inline="text">
+                [[${#numbers.formatDecimal(room.rentPrice, 0, 'COMMA', 0, 'POINT')}]] VNĐ/tháng
+            </h3>
             <p><strong>Diện tích:</strong> 25m²</p>
             <div class="d-flex align-items-center mb-3">
                 <i class="bi bi-star-fill text-warning"></i>
@@ -51,7 +53,7 @@
                 <i class="bi bi-star text-warning"></i>
                 <span class="ms-2">4.5 (15 đánh giá)</span>
             </div>
-            <button class="btn btn-success w-100">Liên hệ: 0987 654 321</button>
+            <button class="btn btn-success w-100">Xem </button>
         </div>
     </div>
 
@@ -72,8 +74,8 @@
                     </li> -->
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active p-3" id="description">
-                    <p>Nội dung mô tả chi tiết về phòng trọ...</p>
+                <div class="tab-pane fade show active p-3" id="description" th:utext="${room.decription}">
+                    <!-- <p>Nội dung mô tả chi tiết về phòng trọ...</p> -->
                 </div>
                 <!-- <div class="tab-pane fade p-3" id="amenities">
                         <ul>
@@ -89,7 +91,5 @@
         </div>
     </div>
 </div>
-
-
 
 </html>
