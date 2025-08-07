@@ -1,6 +1,5 @@
 package com.example.ahihi.controllers.admin;
 
-import java.net.http.HttpResponse.ResponseInfo;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -11,19 +10,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ahihi.entities.Room;
 import com.example.ahihi.entities.RoomDetails;
 import com.example.ahihi.sevices.RoomService;
 import com.example.ahihi.sevices.StorageService;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping(path = "/admin/room")
+@Slf4j
 public class AdminRoomController {
     @Autowired
     private RoomService roomService;
@@ -59,8 +60,6 @@ public class AdminRoomController {
             @RequestParam("status") int status,
             @RequestParam("images") List<MultipartFile> images) {
 
-        System.out.println(rentPrice);
-
         Room room = Room.builder()
                 .id(roomId).area(area).roomType(roomType)
                 .decription(description).status((short) status)
@@ -88,10 +87,33 @@ public class AdminRoomController {
         return "admin/room/update";
     }
 
-    @PostMapping("/update/{id}")
-    public Room postMethodName(@PathVariable("id") String id) {
+    @PutMapping("/update")
+    public Room postMethodName(@RequestParam("roomId") String roomId,
+            @RequestParam("roomType") String roomType,
+            @RequestParam("area") double area,
+            @RequestParam("rentPrice") double rentPrice,
+            @RequestParam("description") String description,
+            @RequestParam("status") int status,
+            @RequestParam("images") List<MultipartFile> images) {
 
-        return entity;
+        Room room = Room.builder()
+                .id(roomId).area(area).roomType(roomType)
+                .decription(description).status((short) status)
+                .rentPrice(rentPrice).roomDetails(new HashSet<>())
+                .build();
+
+        RoomDetails rDetail;
+        int t = 0;
+        for (MultipartFile img : images) {
+            String filename = String.format("room%s-%d-%d.png", roomId, ++t, new Date().getTime());
+            storageService.uploadFile(img, filename);
+            rDetail = new RoomDetails();
+            rDetail.setImageURL(filename);
+            rDetail.setRoom(room);
+            room.getRoomDetails().add(rDetail);
+        }
+        roomService.save(room);
+        return room;
     }
 
     @GetMapping("/delete/{id}")
@@ -102,7 +124,8 @@ public class AdminRoomController {
 
     @PostMapping(value = "/delete/{id}")
     public String deleteRoomReq(@PathVariable("id") String id) {
-        System.out.println("id: " + id);
+        this.roomService.deleteById(id);
+        log.info("Delete Room with id: " + id);
         return "redirect:/admin/room";
     }
 

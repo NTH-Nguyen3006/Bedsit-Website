@@ -32,7 +32,14 @@ public class StorageService {
         }
     }
 
-    public void getImage() {
-
+    public void deleteFile(String filename) {
+        if (filename.isEmpty())
+            throw new StorageException("Failed to store empty file");
+        try {
+            Path imagePath = Paths.get(path, filename);
+            Files.delete(imagePath);
+        } catch (IOException e) {
+            throw new StorageException("Unable to delete file named: " + filename);
+        }
     }
 }

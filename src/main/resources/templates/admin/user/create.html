@@ -58,7 +58,7 @@
     <div class="mt-5" id="RoleManage">
         <h1 class="fw-bold text-uppercase ">Vai trò - người dùng</h1>
         <hr class="mt-1">
-        <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#createRoleModal">
             <svg class="bi">
                 <use th:xlink:href="@{/bootstrap/plus-lg.svg}"></use>
             </svg>
@@ -79,15 +79,17 @@
                     <td th:text="${role.roleName}"></td>
                     <td th:text="${role.decription}"></td>
                     <td>
-                        <a th:href="@{'./user/' + ${role.id}}" class="btn btn-success">Xem</a>
-                        <a th:href="@{./role/update/{id}(id=${role.id})}" class="btn btn-warning">Sửa</a>
+                        <!-- <a th:href="@{'./user/' + ${role.id}}" class="btn btn-success">Xem</a> -->
+                        <a th:href="@{./role/update/{id}(id=${role.id})}" class="btn btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#updateRoleModal" id="updateBtn">Sửa</a>
                         <a th:href="@{./role/delete/{id}(id=${role.id})}" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="createRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -114,9 +116,56 @@
             </div>
         </div>
 
+        <div class="modal fade" id="updateRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fw-bold fs-5" id="exampleModalLabel">Sửa vai trò người dùng</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" class="row g-md-3" id="create-role">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nhận diện vai trò</label>
+                                <input class="form-control" id="username" placeholder="Tên vai trò" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Mô tả vai trò</label>
+                                <input class="form-control" id="password" placeholder="Mô tả">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary">Tạo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <br>
     </div>
-
 </div>
+
+<script layout:fragment="script-block">
+    $("#updateBtn").on("click", (e) => {
+        var id = $(e.target).parent().prevAll("th").get()[0].innerText;
+
+        $.ajax({
+            url: '/admin/user/role/' + id,
+            type: 'GET',
+            // dataType: 'text',
+            success: function (response) {
+                // This function is executed on a successful request
+                console.log('Success:', response);
+            },
+            error: function (xhr, status, error) {
+                // This function is executed if the request fails
+                console.error('Error:', status, error);
+            }
+        });
+    });
+</script>
 
 </html>

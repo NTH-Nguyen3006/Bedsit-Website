@@ -2,6 +2,9 @@ package com.example.ahihi.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +26,7 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "roles")
+// @JsonFormat
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,5 +39,6 @@ public class Roles {
     String decription;
 
     @OneToMany(mappedBy = "roles", targetEntity = User.class)
+    @JsonIgnore
     List<User> user;
 }

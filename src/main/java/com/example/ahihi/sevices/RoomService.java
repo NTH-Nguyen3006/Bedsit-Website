@@ -11,6 +11,8 @@ import com.example.ahihi.repository.RoomRepository;
 @Service
 public class RoomService {
     @Autowired
+    private StorageService storageService;
+    @Autowired
     private RoomRepository roomRepository;
 
     public int roomCount() {
@@ -36,5 +38,13 @@ public class RoomService {
 
     public Room getRoomById(String id) {
         return this.roomRepository.findRoomById(id);
+    }
+
+    public void deleteById(String id) {
+        Room entity = this.getRoomById(id);
+
+        entity.getRoomDetails().forEach(rdetail -> storageService.deleteFile(rdetail.getImageURL()));
+
+        this.roomRepository.deleteById(id);
     }
 }

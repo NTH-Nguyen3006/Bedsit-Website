@@ -177,8 +177,8 @@
 
                 images.forEach(img => data.append("images", img));
 
-                fetch('/admin/room/create', { // Tạo một endpoint mới để xử lý FormData
-                    method: 'POST',
+                fetch('/admin/room/update', { // Tạo một endpoint mới để xử lý FormData
+                    method: 'PUT',
                     body: data,
                 })
                     .then(response => {

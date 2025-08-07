@@ -47,6 +47,6 @@ public class Room {
         Available, Rent, Repair
     }
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     Set<RoomDetails> roomDetails;
 }
