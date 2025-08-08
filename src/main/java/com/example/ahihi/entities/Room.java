@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -35,18 +37,33 @@ public class Room {
     String id;
     double area;
     double rentPrice;
-    short status;
 
-    @Column(length = 50, nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    Status status;
+
+    @Column(length = 50, nullable = false, columnDefinition = "NVARCHAR(50)")
     String roomType;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     String decription;
 
-    enum Status {
-        Available, Rent, Repair
+    public enum Status {
+        Available("Phòng Trống"),
+        Rent("Đã Thuê"),
+        Repair("Đang Bảo Trì");
+
+        String content;
+
+        Status(String content) {
+            this.content = content;
+        }
+
+        public String getContent() {
+            return content;
+        }
     }
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     Set<RoomDetails> roomDetails;
+
 }

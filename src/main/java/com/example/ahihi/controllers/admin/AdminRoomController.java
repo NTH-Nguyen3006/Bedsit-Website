@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,8 @@ public class AdminRoomController {
     @GetMapping(value = { "", "/" })
     public String adminRoomPage(Model model) {
         model.addAttribute("rooms", this.roomService.getAllRoom());
+        // model.addAttribute("roomStatus",
+        // Room.Status.values()[room.status].getContent());
         return "admin/room/index";
     }
 
@@ -58,23 +61,27 @@ public class AdminRoomController {
             @RequestParam("rentPrice") double rentPrice,
             @RequestParam("description") String description,
             @RequestParam("status") int status,
-            @RequestParam("images") List<MultipartFile> images) {
+            @RequestParam("images") @Nullable List<MultipartFile> images) {
 
         Room room = Room.builder()
                 .id(roomId).area(area).roomType(roomType)
-                .decription(description).status((short) status)
+                .decription(description).status(Room.Status.values()[status])
                 .rentPrice(rentPrice).roomDetails(new HashSet<>())
                 .build();
 
-        RoomDetails rDetail;
-        int t = 0;
-        for (MultipartFile img : images) {
-            String filename = String.format("room%s-%d-%d.png", roomId, ++t, new Date().getTime());
-            storageService.uploadFile(img, filename);
-            rDetail = new RoomDetails();
-            rDetail.setImageURL(filename);
-            rDetail.setRoom(room);
-            room.getRoomDetails().add(rDetail);
+        if (images != null) {
+            RoomDetails rDetail;
+            int t = 0;
+            for (MultipartFile img : images) {
+                String filename = String.format("room%s-%d-%d.png", roomId, ++t, new Date().getTime());
+                storageService.uploadFile(img, filename);
+                rDetail = new RoomDetails();
+                rDetail.setImageURL(filename);
+                rDetail.setRoom(room);
+                room.getRoomDetails().add(rDetail);
+            }
+        } else {
+
         }
         roomService.save(room);
         return room;
@@ -94,26 +101,11 @@ public class AdminRoomController {
             @RequestParam("rentPrice") double rentPrice,
             @RequestParam("description") String description,
             @RequestParam("status") int status,
-            @RequestParam("images") List<MultipartFile> images) {
+            @RequestParam("images") @Nullable List<MultipartFile> images,
+            @RequestParam("imagesToRemove") @Nullable List<String> imagesToRemove) {
 
-        Room room = Room.builder()
-                .id(roomId).area(area).roomType(roomType)
-                .decription(description).status((short) status)
-                .rentPrice(rentPrice).roomDetails(new HashSet<>())
-                .build();
-
-        RoomDetails rDetail;
-        int t = 0;
-        for (MultipartFile img : images) {
-            String filename = String.format("room%s-%d-%d.png", roomId, ++t, new Date().getTime());
-            storageService.uploadFile(img, filename);
-            rDetail = new RoomDetails();
-            rDetail.setImageURL(filename);
-            rDetail.setRoom(room);
-            room.getRoomDetails().add(rDetail);
-        }
-        roomService.save(room);
-        return room;
+        return roomService.updateRoom(
+                roomId, roomType, area, rentPrice, description, status, images, imagesToRemove);
     }
 
     @GetMapping("/delete/{id}")
@@ -124,7 +116,7 @@ public class AdminRoomController {
 
     @PostMapping(value = "/delete/{id}")
     public String deleteRoomReq(@PathVariable("id") String id) {
-        this.roomService.deleteById(id);
+        this.roomService.deleteRoomById(id);
         log.info("Delete Room with id: " + id);
         return "redirect:/admin/room";
     }

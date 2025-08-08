@@ -47,8 +47,9 @@
                     <td th:inline="text">
                         [[${#numbers.formatDecimal(room.rentPrice, 0, 'COMMA', 0, 'POINT')}]]
                     </td>
-                    <td th:text="${room.roomType}"></td>
-                    <td th:text="${room.status}"></td>
+                    <td th:text="${room.id}"></td>
+
+                    <td th:text="${room.status.getContent()}"></td>
                     <td>
                         <a th:href="@{'/admin/room/' + ${room.id}}" class="btn btn-success">Xem</a>
                         <a th:href="@{/admin/room/update/{id}(id=${room.id})}" class="btn btn-warning">Sửa</a>

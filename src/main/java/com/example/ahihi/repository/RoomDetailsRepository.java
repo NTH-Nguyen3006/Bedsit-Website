@@ -6,4 +6,5 @@ import com.example.ahihi.entities.RoomDetails;
 
 public interface RoomDetailsRepository extends JpaRepository<RoomDetails, Integer> {
 
+    void deleteRoomDetailsById(int id);
 }

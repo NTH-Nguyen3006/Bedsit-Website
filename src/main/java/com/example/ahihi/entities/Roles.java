@@ -26,7 +26,6 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "roles")
-// @JsonFormat
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

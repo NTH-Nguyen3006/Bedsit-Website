@@ -184,11 +184,12 @@
 
             images.forEach(img => data.append("images", img));
 
-            fetch('/admin/room/update', { // Tạo một endpoint mới để xử lý FormData
-                method: 'PUT',
+            fetch('/admin/room/create', { // Tạo một endpoint mới để xử lý FormData
+                method: 'POST',
                 body: data,
             })
                 .then(response => {
+                    window.location.href = "/admin/room";
                 })
                 .catch(error => {
                     alert(error)

@@ -1,6 +1,5 @@
 package com.example.ahihi.entities;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +32,7 @@ public class RoomDetails {
     @Column(nullable = false)
     String imageURL;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 }

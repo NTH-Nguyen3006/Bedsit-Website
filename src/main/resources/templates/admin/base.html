@@ -26,10 +26,10 @@
 </head>
 
 <div class="bd-gutter bd-layout h-100" style="grid-template-columns: 1fr 7fr;" layout:fragment="content-block">
-    <aside class="bg-light shadow" style="min-width: calc(15rem - 30px);" layout:fragment="aside">
-        <div class="offcanvas-lg offcanvas-start bg-body-tertiary" tabindex="-1" id="bdSidebar"
-            aria-labelledby="bdSidebarOffcanvasLabel">
-            <div class="offcanvas-header border-bottom">
+    <aside class="bg-light shadow position-relative" style="min-width: calc(15rem - 30px);" layout:fragment="aside">
+        <div class="offcanvas-lg offcanvas-start bg-body-tertiary sticky-top" tabindex="-1" id="bdSidebar"
+            aria-labelledby="bdSidebarOffcanvasLabel" style="top: 5em; min-height: 91.6vh;">
+            <div class=" offcanvas-header border-bottom">
                 <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Chuyển Hướng</h5> <button type="button"
                     class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
                     data-bs-target="#bdSidebar"></button>
