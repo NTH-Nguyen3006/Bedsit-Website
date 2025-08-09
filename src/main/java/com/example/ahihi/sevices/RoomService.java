@@ -92,4 +92,8 @@ public class RoomService {
 
         return this.save(room);
     }
+
+    public List<Room> get4RoomRecentUpdates() {
+        return roomRepository.findTop4ByOrderByUpdatedAtDesc();
+    }
 }

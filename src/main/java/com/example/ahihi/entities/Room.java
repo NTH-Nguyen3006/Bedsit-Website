@@ -1,6 +1,10 @@
 package com.example.ahihi.entities;
 
+import java.time.LocalDateTime;
 import java.util.Set;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -47,6 +51,13 @@ public class Room {
     @Column(columnDefinition = "NVARCHAR(MAX)")
     String decription;
 
+    @CreatedDate
+    @Column(updatable = false)
+    LocalDateTime createAt;
+
+    @LastModifiedDate
+    LocalDateTime updatedAt;
+
     public enum Status {
         Available("Phòng Trống"),
         Rent("Đã Thuê"),
@@ -63,6 +74,7 @@ public class Room {
         }
     }
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     Set<RoomDetails> roomDetails;
 
