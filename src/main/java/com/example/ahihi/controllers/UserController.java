@@ -17,10 +17,7 @@ public class UserController {
 
     @GetMapping(value = "/")
     public String homePage(Model model) {
-        System.out.println(
-                ((RoomDetails) roomService.get4RoomRecentUpdates().get(0).getRoomDetails().toArray()[0]).getImageURL());
-        model.addAttribute("test", "ahihi");
-        model.addAttribute("roomRecentUpdate", roomService.get4RoomRecentUpdates());
+        model.addAttribute("roomRecentUpdate", roomService.get10RoomRecentUpdates());
         return "home";
     }
 

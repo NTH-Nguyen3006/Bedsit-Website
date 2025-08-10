@@ -6,7 +6,7 @@
     <style>
         #banner {
             background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1)), url(images/background/banner-room.jpg);
-            height: 92vh;
+            height: 93vh;
             background-position: center;
             background-size: cover;
         }
@@ -34,7 +34,7 @@
 
     <div class="container-lg my-5">
         <div id="rented-room">
-            <div class="title d-md-flex d-sm-grid mb-3">
+            <div class="title d-md-flex d-sm-grid">
                 <h1 class="text-uppercase fw-bolder me-auto">Thuê Phòng</h1>
                 <a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);"
                     href="#">
@@ -45,7 +45,7 @@
                 </a>
             </div>
             <hr class="mt-0">
-            <div class="row g-3">
+            <div class="row g-3 g-lg-4">
                 <div class="col-md-6 col-sm-12" th:each="room : ${roomRecentUpdate}">
                     <div class="row g-0 bg-body-secondary position-relative rounded-3 h-100 shadow">
                         <div class="col-md-6 mb-md-0 p-md-4 align-content-center">
@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        <br><br>
+        <br><br><br class="mt-5">
 
         <div class="my-5" id="surrounding">
             <h1 class="mb-3 fw-bolder text-uppercase">về chúng tôi</h1>
@@ -119,7 +119,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class=" card rounded-5 border-0 shadow-lg p-3">
                             <section class="mx-auto mb-2">
-                                <img class="rounded-circle" th:src="@{images/agents/HoangNguyen.jpg}" width="130">
+                                <img class="rounded-circle" th:src="@{images/agents/HoangNguyen.webp}" width="130">
                             </section>
                             <section class="text-center" id="content">
                                 <h5 class="fw-bolder">Hoàng Nguyên</h5>
@@ -130,33 +130,33 @@
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class=" card rounded-5 border-0 shadow-lg p-3">
                             <section class="mx-auto mb-2">
-                                <img class="rounded-circle" th:src="@{images/agents/HoangNguyen.jpg}" width="130">
+                                <img class="rounded-circle" th:src="@{images/agents/ThuyTrinh.webp}" width="130">
                             </section>
                             <section class="text-center" id="content">
-                                <h5 class="fw-bolder">Hoàng Nguyên</h5>
-                                <p class="text-secondary">Leader - Nhà Phát Triển</p>
+                                <h5 class="fw-bolder">Thùy Trinh</h5>
+                                <p class="text-secondary">Chủ Trọ - Vận Hành</p>
                             </section>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class=" card rounded-5 border-0 shadow-lg p-3">
                             <section class="mx-auto mb-2">
-                                <img class="rounded-circle" th:src="@{images/agents/HoangNguyen.jpg}" width="130">
+                                <img class="rounded-circle" th:src="@{images/agents/HoangMinh.webp}" width="130">
                             </section>
                             <section class="text-center" id="content">
-                                <h5 class="fw-bolder">Hoàng Nguyên</h5>
-                                <p class="text-secondary">Leader - Nhà Phát Triển</p>
+                                <h5 class="fw-bolder">Hoàng Minh</h5>
+                                <p class="text-secondary">Thành Viên Phát Triển</p>
                             </section>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class=" card rounded-5 border-0 shadow-lg p-3">
                             <section class="mx-auto mb-2">
-                                <img class="rounded-circle" th:src="@{images/agents/HoangNguyen.jpg}" width="130">
+                                <img class="rounded-circle" th:src="@{images/agents/VinhKhanh.webp}" width="130">
                             </section>
                             <section class="text-center" id="content">
-                                <h5 class="fw-bolder">Hoàng Nguyên</h5>
-                                <p class="text-secondary">Leader - Nhà Phát Triển</p>
+                                <h5 class="fw-bolder">Vĩnh Khánh</h5>
+                                <p class="text-secondary">Thành Viên Phát Triển</p>
                             </section>
                         </div>
                     </div>
