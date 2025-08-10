@@ -2,11 +2,174 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{admin/base.html}">
 
 <head>
-    <title layout:title-pattern="$CONTENT_TITLE">Admin | Người dùng</title>
+    <title layout:title-pattern="$CONTENT_TITLE">Admin | Tạo Người dùng</title>
+    <style>
+        label {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
-<div class="container-xxl" layout:fragment="admin-main-content">
+<div class="container-xxl mt-3" layout:fragment="admin-main-content">
+    <a th:href="@{/admin/user}" class="btn btn-secondary mb-lg-3">
+        <svg class="bi me-2">
+            <use th:xlink:href="@{/bootstrap/arrow-90deg-left.svg}"></use>
+        </svg>
+        Trở về danh sách
+    </a>
+    <h1 class="fw-bold me-auto text-uppercase mb-lg-3">Tạo Người dùng</h1>
+    <hr class="mt-1">
+    <form method="post" class="row g-md-3">
+        <div class="col-12 col-sm-4 mb-3">
+            <label for="username" class="form-label">Tên tài khoản</label>
+            <input class="form-control" id="username" placeholder="Tên đăng nhập" th:value="${user.username}" required>
+        </div>
+        <div class="col-12 col-sm-4 mb-3">
+            <label for="password" class="form-label">Họ và tên</label>
+            <input class="form-control" id="password" placeholder="Họ và tên" th:value="${user.fullName}">
+        </div>
+        <div class="col-12 col-sm-4 mb-3">
+            <label for="password" class="form-label">Số điện thoại</label>
+            <input class="form-control" id="password" placeholder="Số điện thoại" th:value="${user.phoneNumber}">
+        </div>
+        <div class="col-12 col-sm-4 mb-3">
+            <label for="password" class="form-label">Email</label>
+            <input class="form-control" id="password" placeholder="Email" th:value="${user.email}">
+        </div>
+        <div class="col-12 col-sm-3 mb-3">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input class="form-control" id="password" value="Chưa hỗ trợ" disabled>
+        </div>
+        <div class="col-12 col-sm-2 mb-3">
+            <label for="selectRole" class="form-label">Vai trò</label>
+            <select class="form-select" id="selectRole" required>
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.roleName}"
+                    th:selected="${user.roles.id == role.id}"></option>
+                <!-- <option value="2"></option>
+                <option value="3"></option> -->
+            </select>
+        </div>
 
+        <div class="col-12 col-sm-3 mb-3 align-self-end">
+            <button type="submit" class="btn btn-primary ">Xác nhận</button>
+        </div>
+    </form>
+
+    <div class="mt-5" id="RoleManage">
+        <h1 class="fw-bold text-uppercase ">Vai trò - người dùng</h1>
+        <hr class="mt-1">
+        <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#createRoleModal">
+            <svg class="bi">
+                <use th:xlink:href="@{/bootstrap/plus-lg.svg}"></use>
+            </svg>
+            Thêm vai trò
+        </button>
+        <table class="table table-hover" style="min-width: 50em;">
+            <thead>
+                <tr>
+                    <th scope="col">Mã vai trò</th>
+                    <th scope="col">Vai trò</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col">Hoạt động</th>
+                </tr>
+            </thead>
+            <tbody th:each="role : ${roles}">
+                <tr class="lh-lg">
+                    <th scope="row" th:text="${role.id}"></th>
+                    <td th:text="${role.roleName}"></td>
+                    <td th:text="${role.decription}"></td>
+                    <td>
+                        <a th:href="@{./role/update/{id}(id=${role.id})}" class="btn btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#updateRoleModal" id="updateBtn">Sửa</a>
+                        <a th:href="@{./role/delete/{id}(id=${role.id})}" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="modal fade" id="createRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fw-bold fs-5" id="exampleModalLabel">Tạo vai trò người dùng</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" class="row g-md-3" id="create-role">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nhận diện vai trò</label>
+                                <input class="form-control" id="username" placeholder="Tên vai trò" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Mô tả vai trò</label>
+                                <input class="form-control" id="password" placeholder="Mô tả">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary">Tạo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- update modal -->
+        <div class="modal fade" id="updateRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fw-bold fs-5" id="exampleModalLabel">Sửa vai trò người dùng</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" class="row g-md-3" id="create-role">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nhận diện vai trò</label>
+                                <input class="form-control" id="rolename" placeholder="Tên vai trò" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Mô tả vai trò</label>
+                                <input class="form-control" id="summar-role" placeholder="Mô tả">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary">Tạo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+    </div>
 </div>
+
+<script layout:fragment="script-block">
+    $("#updateBtn").on("click", (e) => {
+        var id = $(e.target).parent().prevAll("th").get()[0].innerText;
+
+        $.ajax({
+            url: '/admin/user/role/' + id,
+            type: 'GET',
+            // dataType: 'text',
+            success: function (response) {
+                // This function is executed on a successful request
+
+                document.getElementById("rolename").value = response.roleName;
+                document.getElementById("summar-role").value = response.decription;
+
+                console.log('Success:', response.roleName);
+            },
+            error: function (xhr, status, error) {
+                // This function is executed if the request fails
+                console.error('Error:', status, error);
+            }
+        });
+    });
+</script>
 
 </html>

@@ -2,7 +2,6 @@ package com.example.ahihi.entities;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -37,6 +36,7 @@ public class Roles {
     @Column(name = "decription")
     String decription;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "roles", targetEntity = User.class)
     @JsonIgnore
     List<User> user;

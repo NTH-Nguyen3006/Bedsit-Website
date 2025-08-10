@@ -32,8 +32,7 @@
                     <td th:text="${user.fullName}"></td>
                     <td th:text="${user.phoneNumber}"></td>
                     <td>
-                        <a th:href="@{'./user/' + ${user.id}}" class="btn btn-success">Xem</a>
-                        <a th:href="@{./user/update/{id}(id=${user.id})}" class="btn btn-warning">Sửa</a>
+                        <a th:href="@{./user/update/{id}(id=${user.id})}" class="btn btn-warning">Xem & Sửa</a>
                         <a th:href="@{./user/delete/{id}(id=${user.id})}" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>

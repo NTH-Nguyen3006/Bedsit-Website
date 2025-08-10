@@ -42,11 +42,24 @@ public class AdminUserController {
         return "redirect:/admin/user";
     }
 
+    @GetMapping(value = "/update/{id}")
+    public String adminUpdateUserPage(Model model, @PathVariable("id") long id) {
+        model.addAttribute("user", this.userService.getUserById(id));
+        model.addAttribute("roles", this.roleService.getAllRole());
+        // this.userService.
+        return "admin/user/update";
+    }
+
+    @PostMapping(value = "/update/{id}")
+    public String updateUser(Model model, @PathVariable("id") int id) {
+        return "admin/user/update";
+    }
+
     @GetMapping("/role/{id}")
     @ResponseBody
     public Roles requestMethodName(@PathVariable int id) {
         var role = this.roleService.getRoleById(id);
+        System.out.println(role);
         return role;
     }
-
 }

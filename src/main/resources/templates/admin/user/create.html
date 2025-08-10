@@ -44,9 +44,10 @@
             <label for="selectRole" class="form-label">Vai trò</label>
             <select class="form-select" id="selectRole" required>
                 <option selected>Chọn vai trò</option>
-                <option value="1"></option>
-                <option value="2"></option>
-                <option value="3"></option>
+
+                <option th:each="role : ${roles}" th:value="${role.id}" th:selected="${user.roles == role.id}"></option>
+                <!-- <option value="2"></option>
+                <option value="3"></option> -->
             </select>
         </div>
 
