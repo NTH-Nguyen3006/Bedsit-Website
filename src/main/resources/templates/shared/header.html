@@ -32,17 +32,22 @@
                                 aria-current="${activePage == 'rent-room'} ? 'page' : ''">Thuê Phòng</a>
                         </li>
                         <li class="nav-item nav-underline">
-                            <a class="nav-link" href="#" th:classappend="${activePage == '#'} ? 'active' : ''"
-                                aria-current="${activePage == '#'} ? 'page' : ''">Tra cứu đơn</a>
+                            <a class="nav-link" th:href="@{/hoa-don}"
+                                th:classappend="${activePage == 'hoa-don'} ? 'active' : ''"
+                                aria-current="${activePage == 'hoa-don'} ? 'page' : ''">Tra cứu đơn</a>
                         </li>
 
                     </ul>
                     <ul class="navbar-nav justify-content-end ms-auto gap-2">
                         <li class="nav-item nav-underline">
-                            <a class="nav-link" th:href="@{/account/login}">Đăng Nhập</a>
+                            <a class="nav-link" th:href="@{/account/login}"
+                                th:classappend="${activePage == 'login'} ? 'active' : ''"
+                                aria-current="${activePage == 'login'} ? 'page' : ''">Đăng Nhập</a>
                         </li>
                         <li class="nav-item nav-underline">
-                            <a class="nav-link" th:href="@{/account/register}">Đăng Ký</a>
+                            <a class="nav-link" th:href="@{/account/register}"
+                                th:classappend="${activePage == 'register'} ? 'active' : ''"
+                                aria-current="${activePage == 'register'} ? 'page' : ''">Đăng Ký</a>
                         </li>
                         <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
                             <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-secondary-emphasis"></div>

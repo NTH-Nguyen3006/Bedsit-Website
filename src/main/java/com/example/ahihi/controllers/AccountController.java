@@ -15,6 +15,7 @@ public class AccountController {
 
     @GetMapping(value = "/login")
     public String loginPage(Model model) {
+        model.addAttribute("activePage", "login");
         model.addAttribute("user", new User());
         return "pages/account/login";
     }
@@ -26,6 +27,7 @@ public class AccountController {
 
     @GetMapping(value = "/register")
     public String registerPage(Model model) {
+        model.addAttribute("activePage", "register");
         model.addAttribute("user", new User());
         return "pages/account/register";
     }
