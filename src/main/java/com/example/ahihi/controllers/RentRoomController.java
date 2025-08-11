@@ -22,7 +22,6 @@ public class RentRoomController {
         model.addAttribute("activePage", "rent-room");
         model.addAttribute("contractPhone", userService.getAdmin().getPhoneNumber());
         model.addAttribute("rooms", this.roomService.getAllRoomDesc(page));
-        System.out.println(this.roomService.getAllRoomDesc(page).getTotalPages());
         return "pages/rent-room";
     }
 }

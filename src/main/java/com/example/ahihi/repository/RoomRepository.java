@@ -17,5 +17,6 @@ public interface RoomRepository extends JpaRepository<Room, String> {
 
     Page<Room> findAllByOrderByUpdatedAtDesc(Pageable pageable);
 
+    @SuppressWarnings("null")
     Page<Room> findAll(Pageable pageable);
 }

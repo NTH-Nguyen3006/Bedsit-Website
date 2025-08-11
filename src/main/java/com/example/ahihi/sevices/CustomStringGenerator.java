@@ -7,7 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
-public class CustomIdGenerator implements IdentifierGenerator {
+public class CustomStringGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object)
@@ -16,5 +16,4 @@ public class CustomIdGenerator implements IdentifierGenerator {
         return UUID.randomUUID().toString().substring(0, 5)
                 .concat(timestampStr.substring(timestampStr.length() - 6));
     }
-
 }
