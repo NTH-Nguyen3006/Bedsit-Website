@@ -45,7 +45,7 @@
                 <tr class="lh-lg">
                     <th th:text="${room.id}" scope="row"></th>
                     <td th:inline="text">
-                        [[${#numbers.formatDecimal(room.rentPrice, 0, 'COMMA', 0, 'POINT')}]]
+                        [[${#numbers.formatInteger(room.rentPrice, 0, 'POINT')}]]
                     </td>
                     <td th:text="${room.roomType}"></td>
 

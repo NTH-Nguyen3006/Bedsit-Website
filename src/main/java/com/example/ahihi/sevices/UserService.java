@@ -2,18 +2,20 @@ package com.example.ahihi.sevices;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ahihi.entities.User;
+import com.example.ahihi.repository.RolesRepository;
 import com.example.ahihi.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserService(UserRepository repository) {
-        this.userRepository = repository;
-    }
+    @Autowired
+    private RolesRepository rolesRepository;
 
     public User saveUserService(User user) {
         return this.userRepository.save(user);
@@ -25,5 +27,10 @@ public class UserService {
 
     public User getUserById(long id) {
         return this.userRepository.findById(id);
+    }
+
+    public User getAdmin() {
+        var adminRole = rolesRepository.findByRoleName("ADMIN");
+        return this.userRepository.findByRoles(adminRole);
     }
 }

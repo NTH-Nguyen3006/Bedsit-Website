@@ -1,34 +1,28 @@
 package com.example.ahihi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.ahihi.entities.RoomDetails;
 import com.example.ahihi.sevices.RoomService;
 import com.example.ahihi.sevices.UserService;
 
 @Controller
-public class UserController {
-
+public class RentRoomController {
     @Autowired
     RoomService roomService;
-
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/")
-    public String homePage(Model model) {
-        model.addAttribute("activePage", "home");
-        model.addAttribute("roomRecentUpdate", roomService.get10RoomRecentUpdates());
+    @GetMapping("/rent-room")
+    public String getMethodName(Model model, @PageableDefault(size = 10) Pageable page) {
+        model.addAttribute("activePage", "rent-room");
         model.addAttribute("contractPhone", userService.getAdmin().getPhoneNumber());
-        return "home";
-    }
-
-    @RequestMapping(value = "/client")
-    public String clientPage(Model model) {
-        return "hello";
+        model.addAttribute("rooms", this.roomService.getAllRoomDesc(page));
+        System.out.println(this.roomService.getAllRoomDesc(page).getTotalPages());
+        return "pages/rent-room";
     }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{shared/_layout}">
+
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE">Tra Cứu Hóa Đơn</title>
+
+</head>
+
+<main layout:fragment="main-block" class="container">
+    <h1 class="text-uppercase fw-bold mb-3">Tra Hóa Đơn Thanh Toán</h1>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Mã Hóa Đơn" aria-label="Search"
+            style="max-width: 35em;" />
+        <button class="btn btn-outline-success" type="submit">
+            <svg class="bi">
+                <use th:xlink:href="@{/bootstrap/search.svg}"></use>
+            </svg>
+        </button>
+    </form>
+
+</main>
+
+</html>

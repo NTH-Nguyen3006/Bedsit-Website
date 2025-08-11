@@ -37,7 +37,7 @@
             <div class="title d-md-flex d-sm-grid">
                 <h1 class="text-uppercase fw-bolder me-auto">Thuê Phòng</h1>
                 <a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);"
-                    href="#">
+                    th:href="@{/rent-room}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
                         <use th:xlink:href="@{bootstrap/house-door-fill.svg}"></use>
                     </svg>
@@ -51,13 +51,16 @@
                         <div class="col-md-6 mb-md-0 p-md-4 align-content-center">
                             <!-- <img src="https://placehold.co/300x200" class="w-100 rounded-3" alt=""> -->
                             <img th:src="@{/upload/{url}(url=${(not #sets.isEmpty(room.getRoomDetails())) ? room.getRoomDetails().iterator().next().getImageURL() : 'Không có URL'})}"
-                                class="w-100 rounded-3" alt="">
-
+                                class="w-100 rounded-3">
                         </div>
                         <div class="col-md-6 p-4 ps-md-0">
                             <h5 class="mt-0 fw-bolder" th:text="${room.roomType}"></h5>
-                            <p>Another instance of placeholder content for this other custom component.</p>
-                            <a href="#" class="stretched-link">Xem thêm</a>
+                            <h6 class="fw-bolder text-success" th:text="${room.rentPrice}"></h6>
+                            <a th:href="@{https://zalo.me/{phone}(phone=${contractPhone})}" class="btn btn-primary">
+                                <img th:src="@{/images/icons/Icon_of_Zalo.webp}" width="20" class="me-2">
+                                Zalo
+                            </a>
+                            <a href="#" class="btn btn-success">Xem thêm</a>
                         </div>
                     </div>
                 </div>
