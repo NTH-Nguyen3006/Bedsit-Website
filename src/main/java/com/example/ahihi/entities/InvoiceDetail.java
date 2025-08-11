@@ -1,8 +1,10 @@
 package com.example.ahihi.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -10,9 +12,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
@@ -20,14 +25,17 @@ import lombok.experimental.FieldDefaults;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "invoice_details")
 public class InvoiceDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "service_id", nullable = false)
-    Integer serviceId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Service_id")
+    private Service service;
 
     @Column(name = "quantity", nullable = false)
     Integer quantity;
@@ -41,4 +49,16 @@ public class InvoiceDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id", nullable = false)
     Invoice invoice;
+}
+
+@Embeddable
+class InvoiceDetailsId implements Serializable {
+
+    @Column(name = "Invoice_id")
+    private int invoiceId;
+
+    @Column(name = "Service_id")
+    private int serviceId;
+
+    // hashCode, equals, getters, setters
 }

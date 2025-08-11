@@ -9,9 +9,12 @@ import java.util.UUID;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -23,7 +26,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "invoice")
+@Table(name = "invoices")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 @AllArgsConstructor
@@ -37,9 +40,6 @@ public class Invoice {
 
     @Column(name = "code", length = 10, unique = true)
     String code;
-
-    @Column(name = "contract_id")
-    Long contractId;
 
     @Column(name = "billing_period_month", nullable = false)
     int billingPeriodMonth;
@@ -67,6 +67,10 @@ public class Invoice {
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InvoiceDetail> invoiceDetails;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Contract_id")
+    private Contract contract;
 
     @PrePersist
     public void generateCode() {
