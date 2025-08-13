@@ -42,7 +42,7 @@ public class Contract {
     private String fileScanUrl;
 
     @Lob
-    @Column(name = "Notes")
+    @Column(name = "Notes", columnDefinition = "Nvarchar(max)")
     private String notes;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -5,4 +5,5 @@ import com.example.ahihi.entities.Invoice;
 
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
+    Invoice findOneByCode(String code);
 }

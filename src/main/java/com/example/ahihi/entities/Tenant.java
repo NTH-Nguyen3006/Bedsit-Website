@@ -42,7 +42,7 @@ public class Tenant {
     @Column(name = "Email", length = 255)
     private String email;
 
-    @Column(name = "VehiclePlate", length = 10)
+    @Column(name = "VehiclePlate", length = 12)
     private String vehiclePlate;
 
     @OneToOne(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

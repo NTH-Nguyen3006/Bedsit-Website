@@ -1,36 +1,46 @@
 package com.example.ahihi.entities;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
 import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
 @Table(name = "Services")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PUBLIC)
 public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    int id;
 
-    @Column(name = "ServiceName", nullable = false, length = 100)
-    private String serviceName;
+    @Column(name = "ServiceName", nullable = false, length = 100, columnDefinition = "NVarchar(100)")
+    String serviceName;
 
     @Column(name = "Unit", nullable = false, length = 20)
-    private String unit;
+    String unit;
 
     @Column(name = "Price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    BigDecimal price;
 
     @Lob
     @Column(name = "Description")
-    private String description;
+    String description;
 
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ServiceUsage> serviceUsages;
+    Set<ServiceUsage> serviceUsages;
 
     @OneToMany(mappedBy = "service")
-    private Set<InvoiceDetail> invoiceDetails;
+    Set<InvoiceDetail> invoiceDetails;
 
     // Getters and Setters
 }

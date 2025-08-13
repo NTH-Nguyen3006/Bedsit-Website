@@ -65,8 +65,9 @@ public class Invoice {
     @Column(name = "created_at")
     LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InvoiceDetail> invoiceDetails;
+    @lombok.ToString.Exclude
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+    public List<InvoiceDetail> invoiceDetails;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Contract_id")
@@ -79,7 +80,6 @@ public class Invoice {
             var codeRandom = UUID.randomUUID().toString().replaceAll("-", "")
                     .substring(0, 5)
                     .concat(timestampStr.substring(timestampStr.length() - 5));
-            System.out.println(codeRandom);
             this.code = codeRandom.toUpperCase();
         }
     }

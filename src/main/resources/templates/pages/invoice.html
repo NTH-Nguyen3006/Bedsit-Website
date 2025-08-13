@@ -8,8 +8,8 @@
 
 <main layout:fragment="main-block" class="container">
     <h1 class="text-uppercase fw-bold mb-3">Tra Hóa Đơn Thanh Toán</h1>
-    <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Mã Hóa Đơn" aria-label="Search"
+    <form class="d-flex" role="search" th:action="@{/hoa-don}">
+        <input class="form-control me-2" type="search" placeholder="Mã Hóa Đơn" aria-label="Search" name="code"
             style="max-width: 35em;" />
         <button class="btn btn-outline-success" type="submit">
             <svg class="bi">
@@ -18,10 +18,52 @@
         </button>
     </form>
 
-    <div class="mt-5" id="invoice-box">
+    <div class="mt-5" id="invoice-box" th:if="${invoice == null}">
         <h5 class="text-danger">
             Không tìm thấy hóa đơn nào...
         </h5>
+    </div>
+
+    <div class="mt-5" id="invoice-box" th:if="${invoice != null}">
+        <!-- <h5 class="text-danger">
+            Không tìm thấy hóa đơn nào...
+        </h5> -->
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên dịch vụ</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="detail, stat : ${invoice.invoiceDetails}">
+                    <th scope="row" th:text="${stat.index+1}"></th>
+                    <td th:text="${detail.service.serviceName}"></td>
+                    <td th:text="${detail.quantity}"></td>
+                    <td th:text="${#numbers.formatInteger(detail.unitPrice, 2, 'POINT')}"></td>
+                    <td class="text-success fw-bold" th:text="${#numbers.formatInteger(detail.subtotal, 2, 'POINT')}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex align-items-center" id="ammout">
+            <h4 class="fw-bolder me-auto">Tổng:</h4>
+            <span class="fw-bold text-success"
+                th:text="${#numbers.formatInteger(invoice.totalAmount, 2, 'POINT') + ' VNĐ'}"></span>
+        </div>
+
+        <div id="payment">
+            <a th:with="formattedAmount=${#numbers.formatInteger(invoice.totalAmount, 0)}"
+                th:href="@{/pay/vnpay(amountInvoice=${formattedAmount}, codeInvoice=${invoice.code})}"
+                class="btn btn-info">Thanh
+                Toán</a>
+        </div>
+
     </div>
 </main>
 

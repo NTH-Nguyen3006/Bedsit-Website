@@ -13,19 +13,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@FieldDefaults(level = AccessLevel.PRIVATE)
+// @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "invoice_details")
 public class InvoiceDetail {
     @Id
@@ -34,7 +32,7 @@ public class InvoiceDetail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Service_id")
-    private Service service;
+    public Service service;
 
     @Column(name = "quantity", nullable = false)
     Integer quantity;
