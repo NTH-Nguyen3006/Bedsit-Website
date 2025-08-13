@@ -51,17 +51,29 @@
             </tbody>
         </table>
 
-        <div class="d-flex align-items-center" id="ammout">
-            <h4 class="fw-bolder me-auto">Tổng:</h4>
-            <span class="fw-bold text-success"
-                th:text="${#numbers.formatInteger(invoice.totalAmount, 2, 'POINT') + ' VNĐ'}"></span>
-        </div>
-
-        <div id="payment">
+        <h4 class="mt-3 fw-bolder me-auto text-capitalize">Chọn Phương thức thanh toán:</h4>
+        <div id="payment" class="me-0">
             <a th:with="formattedAmount=${#numbers.formatInteger(invoice.totalAmount, 0)}"
                 th:href="@{/pay/vnpay(amountInvoice=${formattedAmount}, codeInvoice=${invoice.code})}"
-                class="btn btn-info">Thanh
-                Toán</a>
+                class="btn btn-info">Thanh toán liên ngân hàng: </a>
+
+            <p class="mt-3 fw-bold">Thanh Toán Bằng MOMO: <span class="text-danger">Đang cập nhật ...</span></p>
+
+        </div>
+        <hr>
+
+        <div class=" align-items-center" id="ammout">
+            <div class="d-flex">
+                <h4 class="fw-bolder me-auto">Tổng:</h4>
+                <span class="fw-bold text-success"
+                    th:text="${#numbers.formatInteger(invoice.totalAmount, 2, 'POINT') + ' VNĐ'}"></span>
+            </div>
+
+            <div class="d-flex">
+                <h4 class="fw-bolder me-auto">Trạng Thái:</h4>
+                <span class="fw-bold text-danger"
+                    th:text="${invoice.status? 'Đã Thanh Toán' : 'Chưa thanh toán'}"></span>
+            </div>
         </div>
 
     </div>

@@ -27,4 +27,8 @@ public class InvoiceService {
         }
         return invoice;
     }
+
+    public Invoice save(Invoice invoice) {
+        return invoiceRepository.save(invoice);
+    }
 }

@@ -55,7 +55,7 @@ public class VNPayController extends HttpServlet {
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
         vnp_Params.put("vnp_CurrCode", "VND");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", codeInvoice);
         vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_Locale", "vn");
         vnp_Params.put("vnp_ReturnUrl", vnPayConfig.returnString);
@@ -99,11 +99,6 @@ public class VNPayController extends HttpServlet {
         String paymentUrl = vnPayConfig.vnp_url + "?" + queryUrl;
 
         return new RedirectView(paymentUrl);
-    }
-
-    @GetMapping("/pay/payment-callback")
-    public String payCallback(@RequestParam String param) {
-        return new String();
     }
 
 }
