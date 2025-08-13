@@ -44,10 +44,7 @@
             <label for="selectRole" class="form-label">Vai trò</label>
             <select class="form-select" id="selectRole" required>
                 <option selected>Chọn vai trò</option>
-
-                <option th:each="role : ${roles}" th:value="${role.id}" th:selected="${user.roles == role.id}"></option>
-                <!-- <option value="2"></option>
-                <option value="3"></option> -->
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.roleName}"></option>
             </select>
         </div>
 
@@ -55,6 +52,7 @@
             <button type="submit" class="btn btn-primary ">Xác nhận</button>
         </div>
     </form>
+
 
     <div class="mt-5" id="RoleManage">
         <h1 class="fw-bold text-uppercase ">Vai trò - người dùng</h1>
@@ -80,7 +78,6 @@
                     <td th:text="${role.roleName}"></td>
                     <td th:text="${role.decription}"></td>
                     <td>
-                        <!-- <a th:href="@{'./user/' + ${role.id}}" class="btn btn-success">Xem</a> -->
                         <a th:href="@{./role/update/{id}(id=${role.id})}" class="btn btn-warning" data-bs-toggle="modal"
                             data-bs-target="#updateRoleModal" id="updateBtn">Sửa</a>
                         <a th:href="@{./role/delete/{id}(id=${role.id})}" class="btn btn-danger">Xóa</a>
@@ -156,13 +153,10 @@
         $.ajax({
             url: '/admin/user/role/' + id,
             type: 'GET',
-            // dataType: 'text',
             success: function (response) {
-                // This function is executed on a successful request
                 console.log('Success:', response);
             },
             error: function (xhr, status, error) {
-                // This function is executed if the request fails
                 console.error('Error:', status, error);
             }
         });

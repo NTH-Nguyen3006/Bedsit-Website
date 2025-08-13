@@ -1,103 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
+    ._failed {
+        border-bottom: solid 4px red !important;
     }
 
-    body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background-color: #191927;
+    ._failed i {
+        color: red !important;
     }
 
-    .wrapper {
-        display: inline-flex;
-    }
-
-    .wrapper .static-txt {
-        color: #fff;
-        font-size: 60px;
-        line-height: 95px;
-        font-weight: 600;
-    }
-
-    .dynamic-txt li {
-        color: #6abdb3;
-        list-style: none;
-        font-size: 60px;
-        font-weight: 500;
-
-        position: relative;
-        top: 0;
-        animation: slide 4s steps(2) infinite;
-        background: #191927;
-    }
-
-    @keyframes slide {
-        100% {
-            top: -180px;
-        }
-    }
-
-    .wrapper .dynamic-txt {
-        margin-left: 15px;
-
-        height: 92px;
-        line-height: 92px;
-
-        overflow: hidden;
-    }
-
-    .dynamic-txt li span {
-        position: relative;
-    }
-
-    .dynamic-txt li span::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        height: 100%;
+    ._success {
+        box-shadow: 0 15px 25px #00000019;
+        padding: 45px;
         width: 100%;
-        border-left: 2px solid #6abdb3;
-        animation: typing 2s infinite;
-        background: #191927;
+        text-align: center;
+        margin: 40px auto;
+        border-bottom: solid 4px #28a745;
     }
 
-    @keyframes typing {
-        100% {
-            left: 100%;
-            margin: 0 -35px 0 35px;
-        }
+    ._success i {
+        font-size: 55px;
+        color: #28a745;
+    }
 
+    ._success h2 {
+        margin-bottom: 12px;
+        font-size: 40px;
+        font-weight: 500;
+        line-height: 1.2;
+        margin-top: 10px;
+    }
 
+    ._success p {
+        margin-bottom: 0px;
+        font-size: 18px;
+        color: #495057;
+        font-weight: 500;
     }
 </style>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <title>Text Typing</title>
-</head>
-
-<body>
-    <div class="wrapper">
-        <div class="static-txt">I'm a</div>
-        <div class="dynamic-txt">
-            <li><span>Back-End Dev</span></li>
-            <li><span>Youtuber</span></li>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="message-box _success">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                <h2> Your payment was successful </h2>
+                <p> Thank you for your payment. we will <br>
+                    be in contact with more details shortly </p>
+            </div>
         </div>
     </div>
-</body>
+    <hr>
 
-</html>
+
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="message-box _success _failed">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                <h2> Your payment failed </h2>
+                <p> Try again later </p>
+
+            </div>
+        </div>
+    </div>
+
+</div>

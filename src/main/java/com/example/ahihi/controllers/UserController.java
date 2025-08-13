@@ -10,28 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ahihi.entities.Invoice;
-import com.example.ahihi.repository.InvoiceRepository;
-import com.example.ahihi.sevices.InvoiceService;
 import com.example.ahihi.sevices.RoomService;
 import com.example.ahihi.sevices.UserService;
 
 @Controller
 public class UserController {
 
-    private final InvoiceRepository invoiceRepository;
-
-    private final InvoiceService invoiceService;
-
     @Autowired
     RoomService roomService;
 
     @Autowired
     UserService userService;
-
-    UserController(InvoiceService invoiceService, InvoiceRepository invoiceRepository) {
-        this.invoiceService = invoiceService;
-        this.invoiceRepository = invoiceRepository;
-    }
 
     @GetMapping(value = "/")
     public String homePage(Model model) {
@@ -48,8 +37,10 @@ public class UserController {
         return "home";
     }
 
-    @RequestMapping(value = "/client")
+    @GetMapping(value = "/payment/success")
     public String clientPage(Model model) {
+
         return "hello";
     }
+
 }

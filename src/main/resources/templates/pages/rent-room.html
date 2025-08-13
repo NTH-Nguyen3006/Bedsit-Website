@@ -37,7 +37,7 @@
                         <img th:src="@{/images/icons/Icon_of_Zalo.webp}" width="20" class="me-2">
                         Zalo
                     </a>
-                    <a href="#" class="btn btn-warning">Xem thêm</a>
+                    <a th:href="@{rent-room/view/{id}(id=${room.id})}" class="btn btn-warning">Xem thêm</a>
                 </div>
             </div>
         </div>
@@ -51,17 +51,17 @@
 
                 <a class="page-link" th:href="@{/rent-room}" th:text="${1}"> </a>
 
-                <li class="page-item" th:each="i : ${#numbers.sequence(1, rooms.totalPages)}"
+                <li class="page-item" th:each="i : ${#numbers.sequence(1, rooms.totalPages-1)}"
                     th:if="${rooms.totalPages > 1}">
                     <a class="page-link" th:href="@{/rent-room(page=${i+1})}" th:text="${i + 1}">
                     </a>
                 </li>
 
-                <a class="page-link" th:href="@{/rent-room}" th:text="${rooms.totalPages}"
-                    th:if="${rooms.totalPages > 1}"> </a>
+                <!-- <a class="page-link" th:href="@{/rent-room}" th:text="${rooms.totalPages}"
+                    th:if="${rooms.totalPages > 1}"> </a> -->
 
                 <li class="page-item" th:classappend="${rooms.hasNext()} ? '' : 'disabled'"><a class="page-link"
-                        href="#">Tiếp</a></li>
+                        th:href="@{rent-room(page=${rooms.getNumber() + 1 })}">Tiếp</a></li>
             </ul>
         </nav>
     </div>

@@ -24,7 +24,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@FieldDefaults(level = AccessLevel.PRIVATE)
+// @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "Users")
 public class User {
     @Id

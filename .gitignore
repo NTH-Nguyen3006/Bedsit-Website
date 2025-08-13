@@ -5,6 +5,7 @@ var/www/upload/
 !**/src/main/**/target/
 !**/src/test/**/target/
 docker-compose.yml
+!**/src/main/**/application.properties
 
 ### STS ###
 .apt_generated
