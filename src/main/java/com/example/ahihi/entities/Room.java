@@ -81,4 +81,8 @@ public class Room {
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     Set<RoomDetails> roomDetails;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    Set<Asset> roomAssets;
+
 }

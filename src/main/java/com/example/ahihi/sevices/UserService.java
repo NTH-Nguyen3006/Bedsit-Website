@@ -9,7 +9,10 @@ import com.example.ahihi.entities.User;
 import com.example.ahihi.repository.RolesRepository;
 import com.example.ahihi.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserService {
     @Autowired
     private UserRepository userRepository;
@@ -25,8 +28,13 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public User getUserById(long id) {
-        return this.userRepository.findById(id);
+    public User getUserByUsername(String username) {
+        return this.userRepository.findByUsername(username);
+    }
+
+    public void deleteUser(String username) {
+        userRepository.deleteById(username);
+        log.warn("delete user with username: " + username);
     }
 
     public User getAdmin() {

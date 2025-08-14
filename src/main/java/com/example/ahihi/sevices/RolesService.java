@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.example.ahihi.entities.Roles;
 import com.example.ahihi.repository.RolesRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class RolesService {
     @Autowired
     public RolesRepository roleRepository;
@@ -19,5 +22,14 @@ public class RolesService {
 
     public Roles getRoleById(int id) {
         return this.roleRepository.findRolesById(id);
+    }
+
+    public Roles save(Roles role) {
+        return roleRepository.save(role);
+    }
+
+    public void delete(int id) {
+        roleRepository.deleteById(id);
+        log.warn("delete role with id: " + id);
     }
 }

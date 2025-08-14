@@ -19,31 +19,30 @@
     </a>
     <h1 class="fw-bold me-auto text-uppercase mb-lg-3">Tạo Người dùng</h1>
     <hr class="mt-1">
-    <form method="post" class="row g-md-3">
+    <form method="post" class="row g-md-3" th:object="${newUser}" th:action="@{/admin/user/create}">
         <div class="col-12 col-sm-4 mb-3">
             <label for="username" class="form-label">Tên tài khoản</label>
-            <input class="form-control" id="username" placeholder="Tên đăng nhập" required>
+            <input class="form-control" th:field="*{username}" id="username" placeholder="Tên đăng nhập" required>
         </div>
         <div class="col-12 col-sm-4 mb-3">
-            <label for="password" class="form-label">Họ và tên</label>
-            <input class="form-control" id="password" placeholder="Họ và tên">
+            <label for="fullName" class="form-label">Họ và tên</label>
+            <input class="form-control" th:field="*{fullName}" id="fullName" placeholder="Họ và tên">
         </div>
         <div class="col-12 col-sm-4 mb-3">
-            <label for="password" class="form-label">Số điện thoại</label>
-            <input class="form-control" id="password" placeholder="Số điện thoại">
+            <label for="phoneNumber" class="form-label">Số điện thoại</label>
+            <input class="form-control" th:field="*{phoneNumber}" id="phoneNumber" placeholder="Số điện thoại">
         </div>
         <div class="col-12 col-sm-4 mb-3">
-            <label for="password" class="form-label">Email</label>
-            <input class="form-control" id="password" placeholder="Email">
+            <label for="email" class="form-label">Email</label>
+            <input class="form-control" th:field="*{email}" id="email" placeholder="email">
         </div>
         <div class="col-12 col-sm-3 mb-3">
             <label for="password" class="form-label">Mật khẩu</label>
-            <input class="form-control" id="password" placeholder="Mật khẩu">
+            <input class="form-control" th:field="*{password}" id="password" placeholder="Mật khẩu">
         </div>
         <div class="col-12 col-sm-2 mb-3">
             <label for="selectRole" class="form-label">Vai trò</label>
-            <select class="form-select" id="selectRole" required>
-                <option selected>Chọn vai trò</option>
+            <select class="form-select" th:field="*{roles.id}" id="selectRole" required>
                 <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.roleName}"></option>
             </select>
         </div>
@@ -76,11 +75,12 @@
                 <tr class="lh-lg">
                     <th scope="row" th:text="${role.id}"></th>
                     <td th:text="${role.roleName}"></td>
-                    <td th:text="${role.decription}"></td>
+                    <td th:text="${role.description}"></td>
                     <td>
                         <a th:href="@{./role/update/{id}(id=${role.id})}" class="btn btn-warning" data-bs-toggle="modal"
                             data-bs-target="#updateRoleModal" id="updateBtn">Sửa</a>
-                        <a th:href="@{./role/delete/{id}(id=${role.id})}" class="btn btn-danger">Xóa</a>
+                        <a th:attr="onclick=|handleDeleteBtn('${role.id}')|" id="deleteBtn" class="btn btn-danger"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</a>
                     </td>
                 </tr>
             </tbody>
@@ -88,30 +88,30 @@
 
         <div class="modal fade" id="createRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-dialog modal-dialog-centered" method="post" th:action="@{/admin/user/role/create}"
+                th:object="${newRole}">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fw-bold fs-5" id="exampleModalLabel">Tạo vai trò người dùng</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" class="row g-md-3" id="create-role">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Nhận diện vai trò</label>
-                                <input class="form-control" id="username" placeholder="Tên vai trò" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Mô tả vai trò</label>
-                                <input class="form-control" id="password" placeholder="Mô tả">
-                            </div>
-                        </form>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nhận diện vai trò</label>
+                            <input class="form-control" placeholder="Tên vai trò" th:field="*{roleName}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mô tả vai trò</label>
+                            <input class="form-control" th:field="*{description}" placeholder="Mô tả">
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary">Tạo</button>
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary" id="createRoleBtn" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal">Tạo</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
 
         <div class="modal fade" id="updateRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -126,33 +126,67 @@
                         <form method="post" class="row g-md-3" id="create-role">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Nhận diện vai trò</label>
-                                <input class="form-control" id="username" placeholder="Tên vai trò" required>
+                                <input class="form-control" id="rolename" placeholder="Tên vai trò" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Mô tả vai trò</label>
-                                <input class="form-control" id="password" placeholder="Mô tả">
+                                <input class="form-control" id="summar-role" placeholder="Mô tả">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary">Tạo</button>
+                        <button type="button" class="btn btn-primary">Cập nhật </button>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận xóa</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bạn có chắc chắn xóa role này chứ</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" onclick="" id="submitDeleteRole" class="btn btn-primary">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <br>
     </div>
 </div>
 
 <script layout:fragment="script-block">
-    $("#updateBtn").on("click", (e) => {
-        var id = $(e.target).parent().prevAll("th").get()[0].innerText;
+    document.querySelectorAll("#updateBtn").forEach(el => {
+        el.addEventListener("click", (e) => {
+            var id = $(e.target).parent().prevAll("th").get()[0].innerText;
 
+            $.ajax({
+                url: '/admin/user/role/' + id,
+                type: 'GET',
+                success: function (response) {
+                    $("#rolename").val(response.roleName);
+                    $("#summar-role").val(response.description);
+                    // console.log('Success:', response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', status, error);
+                }
+            });
+        })
+    });
+
+    function deleteRole(id) {
         $.ajax({
-            url: '/admin/user/role/' + id,
-            type: 'GET',
+            url: '/admin/user/role/delete/' + id,
+            type: 'POST',
             success: function (response) {
                 console.log('Success:', response);
             },
@@ -160,7 +194,26 @@
                 console.error('Error:', status, error);
             }
         });
-    });
+    }
+
+
+    function handleDeleteBtn(id) {
+        console.log(id);
+        $("#submitDeleteRole").on("click", () => {
+            $.ajax({
+                url: '/admin/user/role/delete/' + id,
+                type: 'POST',
+                success: function (response) {
+                    window.location.reload();
+                    console.log('Success:', response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', status, error);
+                }
+            });
+        });
+    }
+
 </script>
 
 </html>

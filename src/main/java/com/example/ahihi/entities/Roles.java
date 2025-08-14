@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,21 +23,20 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-// @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "roles")
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @Column(name = "roleName")
+    @Column(name = "roleName", length = 50)
     String roleName;
 
-    @Column(name = "decription")
-    String decription;
+    @Column(name = "description", length = 150, columnDefinition = "NVarchar(150)")
+    String description;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "roles", targetEntity = User.class, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "roles", targetEntity = User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     List<User> user;
 }

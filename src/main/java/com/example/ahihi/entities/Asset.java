@@ -2,10 +2,10 @@ package com.example.ahihi.entities;
 
 import java.sql.Date;
 
-import org.springframework.data.annotation.CreatedDate;
-
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -20,22 +20,17 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "Users")
-public class User {
+@Table(name = "assets")
+public class Asset {
     @Id
-    String username;
-    String email;
-    String password;
-    String fullName;
-    String phoneNumber;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
+    String asset_name;
+    int quantity;
+    String condition;
+    Date created_at;
 
-    boolean status;
-
-    @CreatedDate
-    @Nonnull
-    Date createAt;
-
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    public Roles roles;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    Room room;
 }

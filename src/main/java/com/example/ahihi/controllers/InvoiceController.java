@@ -3,18 +3,19 @@ package com.example.ahihi.controllers;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ahihi.entities.Invoice;
 import com.example.ahihi.sevices.InvoiceService;
 
 import jakarta.websocket.server.PathParam;
-import org.springframework.web.bind.annotation.RequestParam;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class InvoiceController {
 
     @Autowired
@@ -43,6 +44,7 @@ public class InvoiceController {
             System.out.println("invoice: " + invoice);
             invoice.setStatus(true);
             invoiceService.save(invoice);
+            log.info("update invoice pay");
         }
 
         model.addAttribute(allParam);

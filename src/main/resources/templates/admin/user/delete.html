@@ -6,7 +6,25 @@
 </head>
 
 <div class="container-xxl" layout:fragment="admin-main-content">
+    <a th:href="@{/admin/user/}" class="btn btn-secondary mb-5">
+        <svg class="bi me-2">
+            <use th:xlink:href="@{/bootstrap/arrow-90deg-left.svg}"></use>
+        </svg>
+        Trở lại
+    </a>
 
+    <div class=" mt-3">
+        <h1 class="text-uppercase fw-bolder">Người dùng</h1>
+        <form th:action="@{/admin/user/delete/{id}(id=${user.username})}" method="post">
+            <div>
+                <p for="delele">Bạn có thực sự muốn xóa vĩnh viễn dữ liệu này!</p>
+                <button type="submit" class="btn btn-danger ms-auto">
+                    Xác nhận xóa
+                </button>
+            </div>
+        </form>
+
+    </div>
 </div>
 
 </html>
