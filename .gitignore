@@ -6,7 +6,7 @@ var/www/upload/
 !**/src/test/**/target/
 docker-compose.yml
 !**/src/main/**/application.properties
-ahihi.sql
+# ahihi.sql
 
 ### STS ###
 .apt_generated
